@@ -3,7 +3,9 @@ import hashlib
 import os
 
 app = Flask(__name__)
-app.secret_key = os.urandom(32) 
+f = open( "utils/key", 'r' )
+app.secret_key = f.read();
+f.close
 
 #tells apache what to do when browser requests access from root of flask app
 @app.route("/")
@@ -14,7 +16,6 @@ def loginOrRegister():
 #upon form submit it will send post ID to edit()
 @app.route("/feed")
 def storiesFeed():
-    return ""
 
 @app.route("/edit", methods=["POST"])
 def edit():
