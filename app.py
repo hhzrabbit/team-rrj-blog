@@ -1,18 +1,24 @@
-from flask import Flask, render_template
-import utils.script
+from flask import Flask, render_template, request, session, redirect, url_for
+import hashlib
+import os
 
-#this is a constructor call
-#creating an instance of a class
-app = Flask(__name__) 
+app = Flask(__name__)
+app.secret_key = os.urandom(32) 
 
 #tells apache what to do when browser requests access from root of flask app
 @app.route("/")
 def loginOrRegister():
     return ""
-    
+
+#every story in the feed will have a form submit button
+#upon form submit it will send post ID to edit()
 @app.route("/feed")
 def storiesFeed():
     return ""
+
+@app.route("/edit", methods=["POST"])
+def edit():
+    postID = request.form['id']
     
 @app.route("/history")
 def history():
