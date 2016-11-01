@@ -18,41 +18,70 @@ def authenticate(user,password):
     db = sqlite3.connect(f) #open if f exists, otherwise create
     c = db.cursor()  #facilitate db ops  <-- I don't really know what that means but ok
 
-    correctLogin = False #Default to false; login info correct?
+    isLogin = False #Default to false; login info correct?
+    loginStatusMessage = "" #what's wrong
     passHash = sha1(password).hexdigest()#hash it
+    
     checkUser = 'SELECT * FROM users WHERE username=="%s";' % (user)  #checks if the user is in the database
     c.execute(checkUser)
     print 'status of stuff'  #debugging stuff
     l = c.fetchone() #listifies the results
-    
-    
+    if l == None:
+        isLogin = False 
+        loginStatusMessage = "user does not exist"
+    elif l[1] == passHash:
+        isLogin = True 
+        loginStatusMessage = "login info correct"
+    else:
+        isLogin = False 
+        loginStatusMessage = "wrong password"
+    print loginStatusMessage
     #==========================================================
     db.commit() #save changes
     db.close()  #close database
-    return "yolo"
-
-def register(user,password,pwd):
+    return isLogin
+#returns true if register worked
+def register(user,password,pwd):    #user-username, password-password, pwd-retype
     
-    f="database.db"
+    f="testerDB.db"
     db = sqlite3.connect(f) #open if f exists, otherwise create
     c = db.cursor()  #facilitate db ops  <-- I don't really know what that means but ok
 
-    theError = ""
-    if (password == pwd):
+    isRegister = False #defualt not work
+    registerStatus = ""
+
+
+    checkUser = 'SELECT * FROM users WHERE username=="%s";' % (user)  #checks if the user is in the database
+    c.execute(checkUser)
+    print 'status of stuff'  #debugging stuff
+    l = c.fetchone() #listifies the results
+
+    if l != None:
+        isRegister = False
+        registerStatus = "username taken"
+    elif (password != pwd):
+        isRegister = False
+        registerStatus = "passwords do not match"
+    elif (password == pwd):
+        #get latest id
+        getLatestID = "SELECT userID FROM users"
+        c.execute(getLatestID)
+        l = c.fetchall()
+        #print max(l)[0] + 1 #debugging the tuple insanity
+
         passHash = sha1(password).hexdigest()#hash it
-        if (user in usrpwd.keys()):
-            theError = "This username is already registered."
-        else:
-            if ("," in user):
-                theError = "Username has invalid character (a comma)."
-            else:
-                #with open('data/userCsv.csv','a') as csv:
-                #csv.write(user + "," + passHash + "\n")#add row in csv
-                theError = "Your account was successfully created!"
-                usrpwd[user] = passHash#add entry in dict
-    else:
-        theError = "passwords did not match"
+        insertUser = 'INSERT INTO users VALUES ("%s","%s",%d);' % (user,passHash,max(l)[0]+1) #sqlite code for inserting new user
+        c.execute(insertUser)
+        
+        #debugging: check table
+        print "Table"
+        c.execute('SELECT * FROM users;')
+        print c.fetchall()
+
+        isRegister = True
+        registerStatus = "user %s registered!" % (user)
+    print registerStatus
     #==========================================================
     db.commit() #save changes
     db.close()  #close database
-    return theError
+    return isRegister
