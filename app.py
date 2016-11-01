@@ -1,7 +1,7 @@
 from flask import Flask, render_template, request, session, redirect, url_for
 import hashlib
 import os
-import util.accountManager
+import utils.accountManager
 
 app = Flask(__name__)
 f = open( "utils/key", 'r' )
@@ -19,12 +19,19 @@ def authOrCreate():
     if formDict["logOrReg"] == "login":
         username = formDict["username"]
         password = formDict["password"]
-        return accountManager.authenticate(username,password) #returns true or false
+        loginStatus = "login failed"
+        if accountManager.authenticate(username,password): #returns true or false
+            session["username"]=username
+            loginStatus = username + " logged in"
+        return redirect(url_for("/",status=loginStatus))
     elif formDict["logOrReg"] == "register":
         username = formDict["username"]
         password = formDict["password"]
         pwd = formDict["pwd"]  #confirm password
-        return accountManager.register(username,password,pwd) #returns true or false
+        registerStatus = "register failed"
+        if accountManager.register(username,password,pwd): #returns true or false
+            registerStatus = "Account Created"
+        return redirect(url_for("authOrCreate",status=registerStatus)) #status is the login/creation messate 
     else:
         return redirect(url_for("/"))
 
@@ -32,19 +39,27 @@ def authOrCreate():
 #upon form submit it will send post ID to edit()
 @app.route("/feed")
 def storiesFeed():
-    return ""
+    return render_template('feed.html')
 
-@app.route("/edit", methods=["POST"])
+@app.route("/edit", methods=["POST", "GET"])
 def edit():
-    postID = request.form['id']
+    #postID = request.form['id']
+    return render_template('edit.html')
 
 @app.route("/history")
 def history():
-    return ""
+    return render_template('history.html')
+
 
 @app.route("/create")
 def newStory():
-    return ""
+    return render_template('create.html')
+
+@app.route("/recieveCreate")
+def recieveCreate():
+    #add new post to the database
+    return redirect("/history")
+
 
 if __name__ == "__main__":
     app.debug = True

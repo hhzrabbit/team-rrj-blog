@@ -40,6 +40,7 @@ def authenticate(user,password):
     db.commit() #save changes
     db.close()  #close database
     return isLogin
+
 #returns true if register worked
 def register(user,password,pwd):    #user-username, password-password, pwd-retype
     
