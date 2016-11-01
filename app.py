@@ -12,10 +12,15 @@ f.close
 def loginOrRegister():
     return ""
 
+@app.route("/authOrCreate", methods=["POST"])
+def authOrCreate():
+    return ""
+
 #every story in the feed will have a form submit button
 #upon form submit it will send post ID to edit()
 @app.route("/feed")
 def storiesFeed():
+    return ""
 
 @app.route("/edit", methods=["POST"])
 def edit():
