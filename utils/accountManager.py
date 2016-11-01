@@ -3,40 +3,40 @@ import sqlite3   #enable control of an sqlite database
 import csv       #facilitates CSV I/O
 
 
-''' Register​: insert account into user table
-2. Create​: insert story into stories table
-3. Contribute​: insert record of edit into edit_logs table
-ii. edit existing entries in the tables
-1. Contribute​: edit story in stories table
-iii. fetch data from the tables
-1. Register​: make sure username not used
-2. Login​: authenticate credentials
-3. Feed​: pull last edit of stories user has not contributed to
-a. looks at edit_logs table to see which stories the user has
-contributed to
-b. pulled stories can be sorted by time of creation, time of last edit, or
-title
-4. History​: pull full stories user has contributed to
-a. looks at edit_logs table to see which stories the user has
-contributed to
-b. pulled stories can be sorted by time of creation, time of last edit,
-time of user’s edit, or title
-c. for search bar: pulls stories where title matches search query
-5. Contribute​: pull last edit of the story the user is contributing to
+
+''' 
+1. authenticate: authenticate credentials
+2. register: make sure username not used
 '''
+
 from hashlib import sha1
 
-
+#authenticate user returns true if authentication worked
 def authenticate(user,password):
-    inIt = False
+
+    f="testerDB.db"
+    db = sqlite3.connect(f) #open if f exists, otherwise create
+    c = db.cursor()  #facilitate db ops  <-- I don't really know what that means but ok
+
+    correctLogin = False #Default to false; login info correct?
     passHash = sha1(password).hexdigest()#hash it
-    #SELECT username in 
-    if (user in usrpwd.keys()):
-        if (passHash == usrpwd[user]):
-            inIt = True
-    return inIt
+    checkUser = 'SELECT * FROM users WHERE username=="%s";' % (user)  #checks if the user is in the database
+    c.execute(checkUser)
+    print 'status of stuff'  #debugging stuff
+    l = c.fetchone() #listifies the results
+    
+    
+    #==========================================================
+    db.commit() #save changes
+    db.close()  #close database
+    return "yolo"
 
 def register(user,password,pwd):
+    
+    f="database.db"
+    db = sqlite3.connect(f) #open if f exists, otherwise create
+    c = db.cursor()  #facilitate db ops  <-- I don't really know what that means but ok
+
     theError = ""
     if (password == pwd):
         passHash = sha1(password).hexdigest()#hash it
@@ -52,4 +52,7 @@ def register(user,password,pwd):
                 usrpwd[user] = passHash#add entry in dict
     else:
         theError = "passwords did not match"
+    #==========================================================
+    db.commit() #save changes
+    db.close()  #close database
     return theError
