@@ -1,0 +1,15 @@
+10/31 class
+- Bayle: set up password hashing
+- Anya: set up util, worked on accountManager.py
+- Jack: started making templates
+- Haley: set up app.py skeleton, search up how to update entries in SQLite
+
+10/31 home
+- Bayle: set up database with empty tables
+- Jack: set up secret session key & put file in .gitignore
+
+11/1 class
+- Jack: working on Create route in app.py; making nav bar
+- Anya: working on accountManager.py -- login and register functions
+- Bayle: working on inserting data into db for create; made initializedb.py that will only be run once to set up db
+- Haley: edited design doc to streamline db column names and order; helped Bayle with string formatting in python
