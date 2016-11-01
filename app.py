@@ -1,7 +1,7 @@
 from flask import Flask, render_template, request, session, redirect, url_for
 import hashlib
 import os
-import util.accountManager
+import utils.accountManager
 
 app = Flask(__name__)
 f = open( "utils/key", 'r' )
@@ -19,12 +19,19 @@ def authOrCreate():
     if formDict["logOrReg"] == "login":
         username = formDict["username"]
         password = formDict["password"]
-        return accountManager.authenticate(username,password) #returns true or false
+        loginStatus = "login failed"
+        if accountManager.authenticate(username,password): #returns true or false
+            session["username"]=username
+            loginStatus = username + " logged in"
+        return redirect(url_for("/",status=loginStatus))
     elif formDict["logOrReg"] == "register":
         username = formDict["username"]
         password = formDict["password"]
         pwd = formDict["pwd"]  #confirm password
-        return accountManager.register(username,password,pwd) #returns true or false
+        registerStatus = "register failed"
+        if accountManager.register(username,password,pwd): #returns true or false
+            registerStatus = "Account Created"
+        return redirect(url_for("authOrCreate",status=registerStatus)) #status is the login/creation messate 
     else:
         return redirect(url_for("/"))
 
