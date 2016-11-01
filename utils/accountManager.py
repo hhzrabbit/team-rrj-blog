@@ -65,8 +65,8 @@ def register(user,password,pwd):    #user-username, password-password, pwd-retyp
         registerStatus = "passwords do not match"
     elif (password == pwd):
         #get latest id
-        getLatestID = "SELECT userID FROM users"
-        c.execute(getLatestID)
+        getLatestId = "SELECT userId FROM users"
+        c.execute(getLatestId)
         l = c.fetchall()
         #print max(l)[0] + 1 #debugging the tuple insanity
 
