@@ -48,6 +48,11 @@ def history():
 def newStory():
     return render_template('create.html')
 
+@app.route("/recieveCreate")
+def recieveCreate():
+    #add new post to the database
+    return redirect("/history")
+
 
 if __name__ == "__main__":
     app.debug = True
