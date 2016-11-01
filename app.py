@@ -23,7 +23,7 @@ def authOrCreate():
         if accountManager.authenticate(username,password): #returns true or false
             session["username"]=username
             loginStatus = username + " logged in"
-        return redirect(url_for("/",status=loginStatus))
+        return render_template("loginOrReg.html",status=loginStatus)
     elif formDict["logOrReg"] == "register":
         username = formDict["username"]
         password = formDict["password"]
@@ -31,7 +31,7 @@ def authOrCreate():
         registerStatus = "register failed"
         if accountManager.register(username,password,pwd): #returns true or false
             registerStatus = "Account Created"
-        return redirect(url_for("authOrCreate",status=registerStatus)) #status is the login/creation messate 
+        return render_template("loginOrReg.html",status=registerStatus) #status is the login/creation messate 
     else:
         return redirect(url_for("/"))
 
