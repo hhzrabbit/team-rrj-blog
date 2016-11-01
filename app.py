@@ -1,6 +1,7 @@
 from flask import Flask, render_template, request, session, redirect, url_for
 import hashlib
 import os
+import util.accountManager
 
 app = Flask(__name__)
 f = open( "utils/key", 'r' )
@@ -14,7 +15,18 @@ def loginOrRegister():
 
 @app.route("/authOrCreate", methods=["POST"])
 def authOrCreate():
-    return ""
+    formDict = request.form
+    if formDict["logOrReg"] == "login":
+        username = formDict["username"]
+        password = formDict["password"]
+        return accountManager.authenticate(username,password) #returns true or false
+    elif formDict["logOrReg"] == "register":
+        username = formDict["username"]
+        password = formDict["password"]
+        pwd = formDict["pwd"]  #confirm password
+        return accountManager.register(username,password,pwd) #returns true or false
+    else:
+        return redirect(url_for("/"))
 
 #every story in the feed will have a form submit button
 #upon form submit it will send post ID to edit()
@@ -25,7 +37,7 @@ def storiesFeed():
 @app.route("/edit", methods=["POST"])
 def edit():
     postID = request.form['id']
-    
+
 @app.route("/history")
 def history():
     return ""
