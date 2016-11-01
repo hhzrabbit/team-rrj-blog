@@ -1,7 +1,7 @@
 from flask import Flask, render_template, request, session, redirect, url_for
 import hashlib
 import os
-import util.accountManager
+import utils.accountManager
 
 app = Flask(__name__)
 f = open( "utils/key", 'r' )
@@ -32,19 +32,22 @@ def authOrCreate():
 #upon form submit it will send post ID to edit()
 @app.route("/feed")
 def storiesFeed():
-    return ""
+    return render_template('feed.html')
 
-@app.route("/edit", methods=["POST"])
+@app.route("/edit", methods=["POST", "GET"])
 def edit():
-    postID = request.form['id']
+    #postID = request.form['id']
+    return render_template('edit.html')
 
 @app.route("/history")
 def history():
-    return ""
+    return render_template('history.html')
+
 
 @app.route("/create")
 def newStory():
-    return ""
+    return render_template('create.html')
+
 
 if __name__ == "__main__":
     app.debug = True
