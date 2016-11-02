@@ -13,3 +13,15 @@
 - Anya: working on accountManager.py -- login and register functions
 - Bayle: working on inserting data into db for create; made initializedb.py that will only be run once to set up db
 - Haley: edited design doc to streamline db column names and order; helped Bayle with string formatting in python
+
+11/1 home
+- Bayle: added get functions to database manager get values of a story
+
+11/2 class
+- Anya: made master template for jinja inheritance
+- Jack: making templates for create using Anya's master template
+- Bayle: working on create story functionality in database manager
+- Haley: check ins & made some deadlines
+
+11/2 home
+- Haley: helped debug Bayle's create functinality; update design doc

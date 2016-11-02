@@ -18,37 +18,36 @@ def createStory(title, newEntry, username):
     l = c.fetchall()
     storyId = max(l)[0]+1
 
-    p = "INSERT INTO stories VALUES (%s,%s,%s,%d,%d)" %(theTitle, fullStory, lastEdit, origTime,storyId)
+    p = """INSERT INTO stories VALUES ("%s","%s","%s", %d, %d, %d)""" %(title, fullStory, lastEdit, origTime, origTime, storyId)
     c.execute(p)
-    getUserId = "SELECT userId FROM users WHERE username == %s" %(username)
+    getUserId = """SELECT userId FROM users WHERE username == "%s" """ %(username)
     c.execute(getUserId)
-    userId = c.fetchone()
-    
-    p = "INSERT INTO edit_logs VALUES (%d,%d,%d)"%(userId,storyId,origTime)
+    userId = c.fetchone()[0]
+    p = """INSERT INTO edit_logs VALUES (%d,%d,%d)""" %(userId,storyId,origTime)
     c.execute(p)
 
 def getWholeStory(storyId):
-    p = "SELECT fullStory FROM stories WHERE storyId == %s" %(storyId)
+    p = """SELECT fullStory FROM stories WHERE storyId == %s""" %(storyId)
     c.execute(p)
     return c.fetchone()#returns whole story of story whose storyId was given
     
 def getLastEnry(storyId):
-    p = "SELECT lastEntry FROM stories WHERE storyId == %s" %(storyId)
+    p = """SELECT lastEntry FROM stories WHERE storyId == %s""" %(storyId)
     c.execute(p)
     return c.fetchone()#returns last entry of story whose storyId was given
     
 def getAllWholeStory():
-    p = "SELECT fullStory FROM stories"
+    p = """SELECT fullStory FROM stories"""
     c.execute(p)
     return c.fetchall()#returns list of all full stories
     
 def getAllLastEntry():
-    p = "SELECT lastEntry FROM stories"
+    p = """SELECT lastEntry FROM stories"""
     c.execute(p)
     return c.fetchall()#returns list of all last entries
 
-
-p = "INSERT INTO stories VALUES(%s,%s,%s,%d,%d,%d)" %("this is title", "this is","is",0,0,0)
+#testing insertion
+p = """INSERT INTO stories VALUES("%s", "%s", "%s", %d, %d, %d)""" %("this is title", "this is","is",0,0,0)
 
 c.execute(p)
 
