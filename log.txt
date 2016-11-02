@@ -25,3 +25,4 @@
 
 11/2 home
 - Haley: helped debug Bayle's create functinality; update design doc
+- Anya: wrote login/register html page; got login and register working on the site; added proper error messages; added temporary logout button
