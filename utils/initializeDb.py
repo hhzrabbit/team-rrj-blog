@@ -14,5 +14,12 @@ q="CREATE TABLE stories (title TEXT,fullStory TEXT,lastEdit TEXT, origTime INTEG
 c.execute(q)
 q="CREATE TABLE edit_logs (userId INTEGER, storyId INTEGER, time INTEGER)"
 c.execute(q)
+
+#add random stuff for testing
+
+
+c.execute(q)
+
+
 db.commit()
 db.close()
