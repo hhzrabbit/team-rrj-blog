@@ -27,5 +27,25 @@ def createStory(title, newEntry, username):
     p = "INSERT INTO edit_logs VALUES (%d,%d,%d)"%(userId,storyId,origTime)
     c.execute(p)
 
+    def getWholeStory(storyId):
+        p = "SELECT fullStory FROM stories WHERE storyId == %s" %(storyId)
+        c.execute(p)
+        return c.fetchone()#returns whole story of story whose storyId was given
+    
+    def getLastEnry(storyId):
+        p = "SELECT lastEntry FROM stories WHERE storyId == %s" %(storyId)
+        c.execute(p)
+        return c.fetchone()#returns last entry of story whose storyId was given
+    
+    def getAllWholeStory():
+        p = "SELECT fullStory FROM stories"
+        c.execute(p)
+        return c.fetchall()#returns list of all full stories
+    
+    def getAllLastEntry():
+        p = "SELECT lastEntry FROM stories"
+        c.execute(p)
+        return c.fetchall()#returns list of all last entries
+
 db.commit()
 db.close()
