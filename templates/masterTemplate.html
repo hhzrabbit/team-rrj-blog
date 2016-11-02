@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- first line in child of this template should be  {% extends "masterTemplate.html" %} -->
+<!-- first line in child of this template should be  extends "masterTemplate.html" in { with % -->
 <html>
 
     <head>
@@ -10,7 +10,7 @@
     <body>
 
         {% block body_block  %}
-        Stuff   <!-- you can use {% block body_block %} {%endblock %}  -->
+        Stuff   <!-- you can use block body_block and endblock with {  and %  -->
         {% endblock  %}
 
     </body>
