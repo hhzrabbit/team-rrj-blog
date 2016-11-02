@@ -16,24 +16,47 @@ def loginOrRegister():
 @app.route("/authOrCreate", methods=["POST"])
 def authOrCreate():
     formDict = request.form
+    print formDict #for debugging
     if formDict["logOrReg"] == "login":
         username = formDict["username"]
         password = formDict["password"]
         loginStatus = "login failed"
-        if accountManager.authenticate(username,password): #returns true or false
+        statusNum = utils.accountManager.authenticate(username,password) #returns 0,1 or 2 for login status messate
+        if statusNum == 0:
+            loginStatus = "user does not exist"
+        elif statusNum == 1:
             session["username"]=username
             loginStatus = username + " logged in"
+        elif statusNum == 2:
+            loginStatus = "wrong password"
+
         return render_template("loginOrReg.html",status=loginStatus)
-    elif formDict["logOrReg"] == "register":
+
+    elif formDict["logOrReg"] == "register":  #registering
         username = formDict["username"]
         password = formDict["password"]
         pwd = formDict["pwd"]  #confirm password
         registerStatus = "register failed"
-        if accountManager.register(username,password,pwd): #returns true or false
-            registerStatus = "Account Created"
+        statusNum =  utils.accountManager.register(username,password,pwd) #returns true or false
+        if statusNum == 0:
+            registerStatus = "username taken"
+        elif statusNum == 1:
+            registerStatus = "passwords do not match"
+        elif statusNum == 2:
+            registerStatus = username +" account Created"
+
         return render_template("loginOrReg.html",status=registerStatus) #status is the login/creation messate 
     else:
-        return redirect(url_for("/"))
+        return redirect(url_for("loginOrReg"))
+
+@app.route('/logout', methods=["POST"])
+def logout():
+    if "username" in session:
+        session.pop('username')
+        return render_template("loginOrReg.html",status=" logged out") 
+    else:
+        return redirect(url_for('loginOrRegister'))
+
 
 #every story in the feed will have a form submit button
 #upon form submit it will send post ID to edit()

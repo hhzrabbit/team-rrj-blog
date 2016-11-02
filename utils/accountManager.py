@@ -20,26 +20,30 @@ def authenticate(user,password):
 
     isLogin = False #Default to false; login info correct?
     loginStatusMessage = "" #what's wrong
+    messageNumber = 0 #represents what kind of error it is
     passHash = sha1(password).hexdigest()#hash it
-    
+
     checkUser = 'SELECT * FROM users WHERE username=="%s";' % (user)  #checks if the user is in the database
     c.execute(checkUser)
     print 'status of stuff'  #debugging stuff
     l = c.fetchone() #listifies the results
     if l == None:
-        isLogin = False 
+        isLogin = False
+        messageNumber = 0
         loginStatusMessage = "user does not exist"
     elif l[1] == passHash:
-        isLogin = True 
+        isLogin = True
+        messageNumber = 1
         loginStatusMessage = "login info correct"
     else:
-        isLogin = False 
+        isLogin = False
+        messageNumber = 2
         loginStatusMessage = "wrong password"
     print loginStatusMessage
     #==========================================================
     db.commit() #save changes
     db.close()  #close database
-    return isLogin
+    return messageNumber
 
 #returns true if register worked
 def register(user,password,pwd):    #user-username, password-password, pwd-retype
@@ -50,6 +54,7 @@ def register(user,password,pwd):    #user-username, password-password, pwd-retyp
 
     isRegister = False #defualt not work
     registerStatus = ""
+    messageNumber = 0 #for message
 
 
     checkUser = 'SELECT * FROM users WHERE username=="%s";' % (user)  #checks if the user is in the database
@@ -59,9 +64,11 @@ def register(user,password,pwd):    #user-username, password-password, pwd-retyp
 
     if l != None:
         isRegister = False
+        messageNumber = 0
         registerStatus = "username taken"
     elif (password != pwd):
         isRegister = False
+        messageNumber = 1
         registerStatus = "passwords do not match"
     elif (password == pwd):
         #get latest id
@@ -80,9 +87,10 @@ def register(user,password,pwd):    #user-username, password-password, pwd-retyp
         print c.fetchall()
 
         isRegister = True
+        messageNumber = 2
         registerStatus = "user %s registered!" % (user)
     print registerStatus
     #==========================================================
     db.commit() #save changes
     db.close()  #close database
-    return isRegister
+    return messageNumber
