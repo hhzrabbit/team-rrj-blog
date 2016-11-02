@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<!-- first line in child of this template should be  {% extends "masterTemplate.html" %} -->
+<html>
+
+    <head>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">  <!-- thanks Bootstrap! -->
+        <title> {% block title_block %} masterTemplate {% endblock %} </title> <!--page title-->
+    </head>
+
+    <body>
+
+        {% block body_block  %}
+        Stuff   <!-- you can use {% block body_block %} {%endblock %}  -->
+        {% endblock  %}
+
+    </body>
+
+</html>

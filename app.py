@@ -11,7 +11,7 @@ f.close
 #tells apache what to do when browser requests access from root of flask app
 @app.route("/")
 def loginOrRegister():
-    return ""
+    return render_template("loginOrReg.html")
 
 @app.route("/authOrCreate", methods=["POST"])
 def authOrCreate():
