@@ -1,0 +1,25 @@
+{% extends "masterTemplate.html" %}
+{% block title_block %} Login or Register {% endblock %}
+
+{% block body_block  %}
+<h1> Login or Register </h1>
+{{ status }}
+
+<h3>Login</h3>
+<form method="POST" action="/authOrCreate">
+    <input type="text" name="username" placeholder="username" ><br>
+    <input type="password" name="password" placeholder="password"><br>
+    <input type="submit" name="logOrReg"  value="Login">
+</form>
+
+
+<h3>Register</h3>
+<form method="POST" action="/authOrCreate">
+    <input type="text" name="username" placeholder="username" ><br>
+    <input type="password" name="password" placeholder="password"><br>
+    <input type="password" name="pwd" placeholder="confirm password"><br> <!--confirm password-->
+    <input type="submit" name="logOrReg"  value="register">
+</form>
+
+
+    {% endblock %}
