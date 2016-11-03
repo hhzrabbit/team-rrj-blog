@@ -27,6 +27,8 @@ def authOrCreate():
         elif statusNum == 1:
             session["username"]=username
             loginStatus = username + " logged in"
+            return redirect( "/feed" )
+        
         elif statusNum == 2:
             loginStatus = "wrong password"
 
@@ -49,7 +51,7 @@ def authOrCreate():
     else:
         return redirect(url_for("loginOrReg"))
 
-@app.route('/logout', methods=["POST"])
+@app.route('/logout', methods=["POST", "GET"])
 def logout():
     if "username" in session:
         session.pop('username')
@@ -62,22 +64,32 @@ def logout():
 #upon form submit it will send post ID to edit()
 @app.route("/feed")
 def storiesFeed():
-    return render_template('feed.html')
-
+    if 'username' in session:
+        return render_template('feed.html', user = session["username"])
+    else:
+        return redirect(url_for('loginOrRegister'))
+    
 @app.route("/edit", methods=["POST", "GET"])
 def edit():
-    #postID = request.form['id']
-    return render_template('edit.html')
-
+    if 'username' in session:
+        return render_template('edit.html', user = session["username"])
+    else:
+        return redirect("/")
+    
 @app.route("/history")
 def history():
-    return render_template('history.html')
-
-
+    if 'username' in session:
+        return render_template('history.html', user = session["username"])
+    else:
+        return redirect("/")
+   
 @app.route("/create")
 def newStory():
-    return render_template('create.html')
-
+    if 'username' in session:
+        return render_template('create.html', user = session["username"])
+    else:
+        return redirect("/")
+        
 @app.route("/recieveCreate")
 def recieveCreate():
     #add new post to the database
