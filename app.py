@@ -66,6 +66,7 @@ def logout():
 @app.route("/feed")
 def storiesFeed():
     if 'username' in session:
+        print session
         return render_template('feed.html', user = session["username"])
     else:
         return redirect(url_for('loginOrRegister'))

@@ -6,13 +6,14 @@
 
 {% for story in stories}
 
-<p>
-  story
-  <form action="/edit" method="POST">
+<h3> {{ story[0] }} </h3>
+<h4> {{ story[1] }} </h4>
 
-    <input type="submit" name="submit" value="submit">
-  </form>
+
+<p>
+  {{ story[2] }}
 </p>
+  
 
 <hr>
 {% endfor %}

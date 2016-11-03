@@ -137,8 +137,8 @@ def getKey(item):
 
 
 #testing purposes
-print doneStories("anya")
-print undoneStories("anya")
+#print doneStories("anya")
+#print undoneStories("anya")
 
     
 db.commit()
