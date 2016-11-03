@@ -1,6 +1,7 @@
 from flask import Flask, render_template, request, session, redirect, url_for
 import hashlib
 import os
+import utils
 from  utils import accountManager, dbManager
 
 app = Flask(__name__)
@@ -79,8 +80,8 @@ def edit():
 @app.route("/history")
 def history():
     if 'username' in session:
-        postIds = dbManager.getHistory( session['username'])
-
+        stories = dbManager.doneStories( session['username'] )
+        print stories
         return render_template('history.html', user = session["username"])
     else:
         return redirect("/")

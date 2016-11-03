@@ -28,10 +28,11 @@ def createStory(title, newEntry, username):
     userId = getUserId(username)
     p = """INSERT INTO edit_logs VALUES (%d,%d,%d)""" %(userId,storyId,origTime)
     c.execute(p)
+    return 1
 
 #return the userId from the username
 def getUserId(username):
-    getId = """SELECT userId FROM users WHERE username == "%s" """ %(username)
+    getId = """SELECT userId FROM users WHERE username == "%s" """ % (username)
     c.execute(getId)
     return c.fetchone()[0]
 
