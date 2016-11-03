@@ -27,3 +27,6 @@
 - Haley: helped debug Bayle's create functinality; update design doc
 - Anya: wrote login/register html page; got login and register working on the site; added proper error messages; added temporary logout button; wrote the markdown formatting for readme and added some descriptions
 - Jack: connected front end to back end for create and history, but discovered problems with threads (???) in the process. Going to look into the thread stuff tomorrow in class
+
+11/3 home
+- Anya: Fixed issues with the "threads"
