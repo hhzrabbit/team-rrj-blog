@@ -70,7 +70,7 @@ def storiesFeed():
     else:
         return redirect(url_for('loginOrRegister'))
     
-@app.route("/edit", methods=["POST", "GET"])
+@app.route("/edit", methods=["POST"])
 def edit():
     if 'username' in session:
         return render_template('edit.html', user = session["username"])
@@ -80,9 +80,9 @@ def edit():
 @app.route("/history")
 def history():
     if 'username' in session:
-        stories = dbManager.doneStories( session['username'] )
-        print stories
-        return render_template('history.html', user = session["username"])
+        storys = dbManager.doneStories( session['username'] )
+        print storys
+        return render_template('history.html', user = session["username"], stories = storys)
     else:
         return redirect("/")
    

@@ -4,6 +4,17 @@
 
 {% block content_block %}
 
+{% for story in stories}
 
+<p>
+  story
+  <form action="/edit" method="POST">
+
+    <input type="submit" name="submit" value="submit">
+  </form>
+</p>
+
+<hr>
+{% endfor %}
 
 {% endblock %}
