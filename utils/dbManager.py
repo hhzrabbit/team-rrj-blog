@@ -113,7 +113,9 @@ def doneStories(username):
         finalList.append(newThing)
     return finalList
 
-def doneStories(username):
+#to return a tuple of the stories that the person has not edited (just the last entry would be displayed)
+
+def undoneStories(username):
     userId = getUserId(username)
     p = """SELECT storyId,time FROM edit_logs WHERE userId != %d"""%(userId)
     c.execute(p)
@@ -132,9 +134,10 @@ def doneStories(username):
 def getKey(item):
     return item[1]#returns second entry
 
-#to return a tuple of the stories that the person has not edited (just the last entry would be displayed)
 
-#def doneStories(userId):
+#testing purposes
+  #print doneStories("anya")
+  #print undoneStories("anya")
 
     
 db.commit()
