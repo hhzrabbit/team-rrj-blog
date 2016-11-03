@@ -66,24 +66,6 @@ def getAllLastEntry():
     return c.fetchall()
 #-----------------------------------------------------------------------------
 
-#returns list of all storyId's that @username has contributed to
-def getHistory( username ):
-    p = """
-    SELECT userID FROM users
-    WHERE username == %s
-    """ % (username) 
-
-    c.execute(p)
-    userId = c.fetchall()
-    print "\n" + userId
-    
-    p = """
-    SELECT storyId FROM edit_logs
-    WHERE 
-    
-    """
-    return 0
-
 #testing insertion
   #p = """INSERT INTO stories VALUES("%s", "%s", "%s", %d, %d, %d)""" %("this is title", "this is","is",0,0,0)
 
