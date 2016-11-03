@@ -43,7 +43,7 @@ def getLastEnry(storyId):
     p = """SELECT lastEntry FROM stories WHERE storyId == %s""" %(storyId)
     c.execute(p)
     return c.fetchone()
-    
+#-------------------------------not really needed---------------------------    
 #returns list of all full stories
 def getAllWholeStory():
     p = """SELECT fullStory FROM stories"""
@@ -55,14 +55,16 @@ def getAllLastEntry():
     p = """SELECT lastEntry FROM stories"""
     c.execute(p)
     return c.fetchall()
+#-----------------------------------------------------------------------------
 
 #testing insertion
-'''p = """INSERT INTO stories VALUES("%s", "%s", "%s", %d, %d, %d)""" %("this is title", "this is","is",0,0,0)
+  #p = """INSERT INTO stories VALUES("%s", "%s", "%s", %d, %d, %d)""" %("this is title", "this is","is",0,0,0)
 
-c.execute(p)
+  #c.execute(p)
 
-createStory("this is the title","this is the new entry","bayless")
-'''
+createStory("this is the title","this is the new entry","anya")
+createStory("hi all","beginning of story","software")
+createStory("im creating another story","this is the beginning of my new story","anya")
 
 #update the full story, last edit, and latest time
 #connect story submission with user
@@ -84,6 +86,28 @@ def updateStory(storyId, newEdit, userId):
 
 #testing updateStory
     #updateStory(1,"this is a new edit", 0)
+
+#to return a chronological list with most recent first of all the stories that the person has edited already
+
+def editableStories(userId):
+    p = """SELECT storyId,time FROM edit_logs WHERE userId = %s"""%(userId)
+    c.execute(p)
+    totalTuple = c.fetchall()
+    order = sorted(totalTuple, key=getKey)
+    return null 
+    #theStories =  c.fetchall()
+    order = []
+    #for i in  
+    storyContent = []
+
+
+#helper fxn for sorting tuple
+def getKey(custom):
+    return custom.time
+#to return a tuple of the stories that the person has not edited (just the last entry would be displayed)
+
+#def doneStories(userId):
+
     
 db.commit()
 db.close()
