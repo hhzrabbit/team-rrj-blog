@@ -9,6 +9,11 @@ f = "database.db"
 db = sqlite3.connect(f) #open if f exists, otherwise create
 c = db.cursor()    #facilitate db ops
 
+#testing purposes
+  #p = """INSERT INTO stories VALUES("%s","%s","%s", %d, %d, %d)""" %("the Title", "the full Story", "Story", 0,0, 0)
+
+  #c.execute(p)
+
 def createStory(title, newEntry, username):
     origTime = time.time()
     fullStory = newEntry
@@ -62,9 +67,9 @@ def getAllLastEntry():
 
   #c.execute(p)
 
-createStory("this is the title","this is the new entry","anya")
-createStory("hi all","beginning of story","software")
-createStory("im creating another story","this is the beginning of my new story","anya")
+#createStory("this is the title","this is the new entry","anya")
+#createStory("hi all","beginning of story","software")
+#createStory("im creating another story","this is the beginning of my new story","anya")
 
 #update the full story, last edit, and latest time
 #connect story submission with user
