@@ -79,6 +79,8 @@ def edit():
 @app.route("/history")
 def history():
     if 'username' in session:
+        postIds = dbManager.getHistory( session['username'])
+
         return render_template('history.html', user = session["username"])
     else:
         return redirect("/")
@@ -95,7 +97,7 @@ def recieveCreate():
     formDict = request.form
     storyTitle = formDict["storyTitle"]
     storyContent = formDict["storyContent"]
-    createStory( storyTitle, storyContent, session["username"] )
+    dbManager.createStory( storyTitle, storyContent, session["username"] )
     
     return redirect("/history")
 
