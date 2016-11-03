@@ -108,9 +108,9 @@ def doneStories(username):
     order = sorted(theIds, key=getKey)
     finalList = []
     for story in order:
-        p = """SELECT fullStory FROM stories WHERE storyId == %d"""%(story[0])
+        p = """SELECT title,latestTime,fullStory FROM stories WHERE storyId == %d"""%(story[0])
         c.execute(p)
-        newThing = c.fetchone()[0]
+        newThing = list(c.fetchall()) #list of [title,time,content]
         finalList.append(newThing)
     return finalList
 
@@ -125,9 +125,9 @@ def undoneStories(username):
     order = sorted(theIds, key=getKey)
     finalList = []
     for story in order:
-        p = """SELECT lastEdit FROM stories WHERE storyId == %d"""%(story[0])
+        p = """SELECT title,latestTime,lastEdit FROM stories WHERE storyId == %d"""%(story[0])
         c.execute(p)
-        newThing = c.fetchone()[0]
+        newThing = list(c.fetchall())#list of [title,time,content]
         finalList.append(newThing)
     return finalList
 
@@ -137,8 +137,8 @@ def getKey(item):
 
 
 #testing purposes
-  #print doneStories("anya")
-  #print undoneStories("anya")
+print doneStories("anya")
+print undoneStories("anya")
 
     
 db.commit()
