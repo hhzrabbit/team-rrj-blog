@@ -25,11 +25,15 @@ def createStory(title, newEntry, username):
 
     p = """INSERT INTO stories VALUES ("%s","%s","%s", %d, %d, %d)""" %(title, fullStory, lastEdit, origTime, origTime, storyId)
     c.execute(p)
-    getUserId = """SELECT userId FROM users WHERE username == "%s" """ %(username)
-    c.execute(getUserId)
-    userId = c.fetchone()[0]
+    userId = getUserId(username)
     p = """INSERT INTO edit_logs VALUES (%d,%d,%d)""" %(userId,storyId,origTime)
     c.execute(p)
+
+#return the userId from the username
+def getUserId(username):
+    getId = """SELECT userId FROM users WHERE username == "%s" """ %(username)
+    c.execute(getId)
+    return c.fetchone()[0]
 
 #get storyId from it's title -- this may or may not be useful
 def getStoryId(title):
@@ -94,21 +98,40 @@ def updateStory(storyId, newEdit, userId):
 
 #to return a chronological list with most recent first of all the stories that the person has edited already
 
-def editableStories(userId):
-    p = """SELECT storyId,time FROM edit_logs WHERE userId = %s"""%(userId)
+def doneStories(username):
+    userId = getUserId(username)
+    p = """SELECT storyId,time FROM edit_logs WHERE userId == %d"""%(userId)
     c.execute(p)
     totalTuple = c.fetchall()
-    order = sorted(totalTuple, key=getKey)
-    return null 
-    #theStories =  c.fetchall()
-    order = []
-    #for i in  
-    storyContent = []
+    theIds = list(totalTuple)#make tuple a list -- easier to work with
+    order = sorted(theIds, key=getKey)
+    finalList = []
+    for story in order:
+        p = """SELECT fullStory FROM stories WHERE storyId == %d"""%(story[0])
+        c.execute(p)
+        newThing = c.fetchone()[0]
+        finalList.append(newThing)
+    return finalList
 
+def doneStories(username):
+    userId = getUserId(username)
+    p = """SELECT storyId,time FROM edit_logs WHERE userId != %d"""%(userId)
+    c.execute(p)
+    totalTuple = c.fetchall()
+    theIds = list(totalTuple)#make tuple a list -- easier to work with
+    order = sorted(theIds, key=getKey)
+    finalList = []
+    for story in order:
+        p = """SELECT lastEdit FROM stories WHERE storyId == %d"""%(story[0])
+        c.execute(p)
+        newThing = c.fetchone()[0]
+        finalList.append(newThing)
+    return finalList
 
-#helper fxn for sorting tuple
-def getKey(custom):
-    return custom.time
+#helper fxn for sorting a 2d list
+def getKey(item):
+    return item[1]#returns second entry
+
 #to return a tuple of the stories that the person has not edited (just the last entry would be displayed)
 
 #def doneStories(userId):
