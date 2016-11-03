@@ -11,9 +11,6 @@ import csv       #facilitates CSV I/O
 
 from hashlib import sha1
 
-f="database.db"
-db = sqlite3.connect(f) #open if f exists, otherwise create
-c = db.cursor()  #facilitate db ops  <-- I don't really know what that means but ok
 '''testing purposes
 p = """INSERT INTO users VALUES("%s","%s",%d)""" %("firstEnrty","hashedpass",0)
 c.execute(p)
@@ -21,6 +18,10 @@ c.execute(p)
 #authenticate user returns true if authentication worked
 
 def authenticate(user,password):
+
+    f="database.db"
+    db = sqlite3.connect(f) #open if f exists, otherwise create
+    c = db.cursor()  #facilitate db ops  <-- I don't really know what that means but ok
     isLogin = False #Default to false; login info correct?
     loginStatusMessage = "" #what's wrong
     messageNumber = 0 #represents what kind of error it is
@@ -43,10 +44,16 @@ def authenticate(user,password):
         messageNumber = 2
         loginStatusMessage = "wrong password"
     print loginStatusMessage
+
+    db.commit() #save changes
+    db.close()  #close database
     return messageNumber
 
 #returns true if register worked
 def register(user,password,pwd):    #user-username, password-password, pwd-retype
+    f="database.db"
+    db = sqlite3.connect(f) #open if f exists, otherwise create
+    c = db.cursor()  #facilitate db ops  <-- I don't really know what that means but ok
     isRegister = False #defualt not work
     registerStatus = ""
     messageNumber = 0 #for message
@@ -85,6 +92,9 @@ def register(user,password,pwd):    #user-username, password-password, pwd-retyp
         messageNumber = 2
         registerStatus = "user %s registered!" % (user)
     print registerStatus
+
+    db.commit() #save changes
+    db.close()  #close database
     return messageNumber
 
     #==========================================================
@@ -93,6 +103,4 @@ register("anya","password","password")
 register("software","password","password")
 '''
 
-db.commit() #save changes
-db.close()  #close database
     

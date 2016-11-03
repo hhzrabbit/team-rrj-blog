@@ -4,10 +4,7 @@ import time
 block comment describing the contents of this file
 '''
 import sqlite3   #enable control of an sqlite database
-f = "database.db"
 
-db = sqlite3.connect(f) #open if f exists, otherwise create
-c = db.cursor()    #facilitate db ops
 
 #testing purposes
   #p = """INSERT INTO stories VALUES("%s","%s","%s", %d, %d, %d)""" %("the Title", "the full Story", "Story", 0,0, 0)
@@ -15,6 +12,10 @@ c = db.cursor()    #facilitate db ops
   #c.execute(p)
 
 def createStory(title, newEntry, username):
+    f = "database.db"
+    db = sqlite3.connect(f) #open if f exists, otherwise create
+    c = db.cursor()    #facilitate db ops
+
     origTime = time.time()
     fullStory = newEntry
     lastEdit = fullStory
@@ -28,43 +29,97 @@ def createStory(title, newEntry, username):
     userId = getUserId(username)
     p = """INSERT INTO edit_logs VALUES (%d,%d,%d)""" %(userId,storyId,origTime)
     c.execute(p)
+    db.commit()
+    db.close()
     return 1
 
 #return the userId from the username
 def getUserId(username):
+    f = "database.db"
+    db = sqlite3.connect(f) #open if f exists, otherwise create
+    c = db.cursor()    #facilitate db ops
+
     getId = """SELECT userId FROM users WHERE username == "%s" """ % (username)
     c.execute(getId)
-    return c.fetchone()[0]
+
+    ans = c.fetchone()[0]
+
+    db.commit()
+    db.close()
+    return ans
 
 #get storyId from it's title -- this may or may not be useful
 def getStoryId(title):
+    f = "database.db"
+    db = sqlite3.connect(f) #open if f exists, otherwise create
+    c = db.cursor()    #facilitate db ops
+    
     p = """SELECT storyId FROM stories WHERE title == %s""" %(title)
     c.execute(p)
-    return c.fetchone()
+    ans = c.fetchone()
+
+    db.commit()
+    db.close()
+    return ans
 
 #returns whole story of story whose storyId was given
 def getWholeStory(storyId):
+    f = "database.db"
+    db = sqlite3.connect(f) #open if f exists, otherwise create
+    c = db.cursor()    #facilitate db ops
+
     p = """SELECT fullStory FROM stories WHERE storyId == %s""" %(storyId)
     c.execute(p)
-    return c.fetchone()
-    
+
+    ans = c.fetchone()
+    db.commit()
+    db.close()
+    return ans
+
+
 #returns last entry of story whose storyId was given
 def getLastEnry(storyId):
+    f = "database.db"
+    db = sqlite3.connect(f) #open if f exists, otherwise create
+    c = db.cursor()    #facilitate db ops
+
     p = """SELECT lastEntry FROM stories WHERE storyId == %s""" %(storyId)
     c.execute(p)
-    return c.fetchone()
+
+    ans = c.fetchone()
+    db.commit()
+    db.close()
+    return ans
+
 #-------------------------------not really needed---------------------------    
 #returns list of all full stories
 def getAllWholeStory():
+    f = "database.db"
+    db = sqlite3.connect(f) #open if f exists, otherwise create
+    c = db.cursor()    #facilitate db ops
+
     p = """SELECT fullStory FROM stories"""
     c.execute(p)
-    return c.fetchall()
+
+    ans = c.fetchall()
+    db.commit()
+    db.close()
+    return ans
     
 #returns list of all last entries
 def getAllLastEntry():
+    f = "database.db"
+    db = sqlite3.connect(f) #open if f exists, otherwise create
+    c = db.cursor()    #facilitate db ops
+
     p = """SELECT lastEntry FROM stories"""
     c.execute(p)
-    return c.fetchall()
+
+    ans = c.fetchall()
+    db.commit()
+    db.close()
+    return ans
+
 #-----------------------------------------------------------------------------
 
 #testing insertion
@@ -79,6 +134,10 @@ def getAllLastEntry():
 #update the full story, last edit, and latest time
 #connect story submission with user
 def updateStory(storyId, newEdit, userId):
+    f = "database.db"
+    db = sqlite3.connect(f) #open if f exists, otherwise create
+    c = db.cursor()    #facilitate db ops
+
     #updating stories table
     p = """UPDATE stories SET lastEdit = "%s" WHERE storyId == %d"""%(newEdit, storyId)
     c.execute(p)
@@ -93,13 +152,18 @@ def updateStory(storyId, newEdit, userId):
     #updating edit_logs table
     p = """INSERT INTO edit_logs VALUES(%d,%d,%d)""" %(userId, storyId,nowTime)
     c.execute(p)
-
+    db.commit()
+    db.close()
 #testing updateStory
     #updateStory(1,"this is a new edit", 0)
 
 #to return a chronological list with most recent first of all the stories that the person has edited already
 
 def doneStories(username):
+    f = "database.db"
+    db = sqlite3.connect(f) #open if f exists, otherwise create
+    c = db.cursor()    #facilitate db ops
+
     userId = getUserId(username)
     p = """SELECT storyId,time FROM edit_logs WHERE userId == %d"""%(userId)
     c.execute(p)
@@ -112,11 +176,18 @@ def doneStories(username):
         c.execute(p)
         newThing = list(c.fetchall()) #list of [title,time,content]
         finalList.append(newThing)
+    db.commit()
+    db.close()
     return finalList
 
 #to return a tuple of the stories that the person has not edited (just the last entry would be displayed)
 
 def undoneStories(username):
+    
+    f = "database.db"
+    db = sqlite3.connect(f) #open if f exists, otherwise create
+    c = db.cursor()    #facilitate db ops
+
     userId = getUserId(username)
     p = """SELECT storyId,time FROM edit_logs WHERE userId != %d"""%(userId)
     c.execute(p)
@@ -129,6 +200,8 @@ def undoneStories(username):
         c.execute(p)
         newThing = list(c.fetchall())#list of [title,time,content]
         finalList.append(newThing)
+    db.commit()
+    db.close()
     return finalList
 
 #helper fxn for sorting a 2d list
@@ -140,6 +213,3 @@ def getKey(item):
 #print doneStories("anya")
 #print undoneStories("anya")
 
-    
-db.commit()
-db.close()
