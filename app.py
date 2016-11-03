@@ -1,7 +1,7 @@
 from flask import Flask, render_template, request, session, redirect, url_for
 import hashlib
 import os
-import utils.accountManager
+from  utils import accountManager, dbManager
 
 app = Flask(__name__)
 f = open( "utils/key", 'r' )
@@ -21,7 +21,7 @@ def authOrCreate():
         username = formDict["username"]
         password = formDict["password"]
         loginStatus = "login failed"
-        statusNum = utils.accountManager.authenticate(username,password) #returns 0,1 or 2 for login status messate
+        statusNum = accountManager.authenticate(username,password) #returns 0,1 or 2 for login status messate
         if statusNum == 0:
             loginStatus = "user does not exist"
         elif statusNum == 1:
@@ -39,7 +39,7 @@ def authOrCreate():
         password = formDict["password"]
         pwd = formDict["pwd"]  #confirm password
         registerStatus = "register failed"
-        statusNum =  utils.accountManager.register(username,password,pwd) #returns true or false
+        statusNum = accountManager.register(username,password,pwd) #returns true or false
         if statusNum == 0:
             registerStatus = "username taken"
         elif statusNum == 1:
@@ -90,9 +90,13 @@ def newStory():
     else:
         return redirect("/")
         
-@app.route("/recieveCreate")
+@app.route("/recieveCreate", methods=['POST'])
 def recieveCreate():
-    #add new post to the database
+    formDict = request.form
+    storyTitle = formDict["storyTitle"]
+    storyContent = formDict["storyContent"]
+    createStory( storyTitle, storyContent, session["username"] )
+    
     return redirect("/history")
 
 

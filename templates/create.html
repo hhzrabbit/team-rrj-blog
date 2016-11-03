@@ -4,5 +4,32 @@
 
 {% block content_block %}
 
+<form action="/recieveCreate" method="POST">
+  <table>
+    <tr>
+      <td>
+	Title:
+      </td>
+      <td>
+	<input type="text" name="storyTitle" value="Title">
+      </td>
+    </tr>
+    
+    <tr>
+      <td>
+	Start Your Story:
+      </td>
+      <td>
+	<input type="text" name="storyContent" value="Story">
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+	<input type="submit" name="submit" value="submit">
+      </td>
+    </tr>
+    
+</form>
 
 {% endblock %}
