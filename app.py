@@ -67,7 +67,8 @@ def logout():
 def storiesFeed():
     if 'username' in session:
         print session
-        return render_template('feed.html', user = session["username"])
+        storys = dbManager.undoneStories( session['username'] )
+        return render_template('feed.html', user = session["username"], stories = storys)
     else:
         return redirect(url_for('loginOrRegister'))
     

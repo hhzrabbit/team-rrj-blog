@@ -11,9 +11,11 @@
   <li> <a href="/logout">Logout</a> </li>
 </ul>
 
+<h1>
   {% block title_block %}
-    <h1> {{ super() }} </h1>
+  {{ super() }}
   {% endblock %}
+</h1>
 
   {% block content_block %}
 

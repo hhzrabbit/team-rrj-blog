@@ -4,5 +4,19 @@
 
 {% block content_block %}
 
+{% for story in stories %}
+
+<h3> {{ story[0][0] }} </h3>
+<h4> {{ story[0][1] }} </h4>
+
+
+<p>
+  {{ story[0][2] }}
+</p>
+  
+
+<hr>
+{% endfor %}
+
 
 {% endblock %}

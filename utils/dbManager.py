@@ -196,7 +196,7 @@ def undoneStories(username):
     order = sorted(theIds, key=getKey)
     finalList = []
     for story in order:
-        p = """SELECT title,latestTime,lastEdit FROM stories WHERE storyId == %d"""%(story[0])
+        p = """SELECT title,latestTime,lastEdit, storyId FROM stories WHERE storyId == %d"""%(story[0])
         c.execute(p)
         newThing = list(c.fetchall())#list of [title,time,content]
         finalList.append(newThing)
