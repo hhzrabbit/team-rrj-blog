@@ -4,5 +4,18 @@
 
 {% block content_block %}
 
+<h1> {{ info[0] }} </h1>
+
+<p>
+  {{ info[1] }}
+</p>
+  
+<form action="/recieveEdit" method="POST">
+  <input type="text" name="content" value="Add to the story!">
+  <input type="submit" name="submit" value="Submit">
+  <input type="hidden" name="storyId" value={{ info[2] }}>
+
+</form>
+
 
 {% endblock %}

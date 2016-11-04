@@ -90,6 +90,26 @@ def getLastEnry(storyId):
     db.commit()
     db.close()
     return ans
+# ^^ we dont use this and it doesnt work
+
+
+#returns all necessary components to edit a story
+def getEditStats(storyId):
+    f = "database.db"
+    db = sqlite3.connect(f) #open if f exists, otherwise create
+    c = db.cursor()    #facilitate db ops
+
+    p = """SELECT title, lastEdit FROM stories WHERE storyId == %s""" %(storyId)
+    c.execute(p)
+
+    stats = c.fetchone()
+    db.commit()
+    db.close()
+    ans = []
+    ans.append( stats[0] )
+    ans.append( stats[1] )
+    ans.append( storyId )
+    return ans
 
 #-------------------------------not really needed---------------------------    
 #returns list of all full stories
@@ -143,7 +163,7 @@ def updateStory(storyId, newEdit, userId):
     c.execute(p)
     #makes tuple into a string -- wholeStory = ''.join(getWholeStory(storyId))
     wholeStory = getWholeStory(storyId)[0]
-    wholeStory += " " + newEdit
+    wholeStory += " HOW DO WE GET A NEW LINE HERE " + newEdit
     p = """UPDATE stories SET fullStory = "%s" WHERE storyId == %d"""%(wholeStory, storyId)
     c.execute(p)
     nowTime = time.time()

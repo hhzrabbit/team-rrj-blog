@@ -9,7 +9,7 @@ f = open( "utils/key", 'r' )
 app.secret_key = f.read();
 f.close
 
-#tells apache what to do when browser requests access from root of flask app
+#tells flask what to do when browser requests access from root of flask app
 @app.route("/")
 def loginOrRegister():
     return render_template("loginOrReg.html")
@@ -74,10 +74,11 @@ def storiesFeed():
     
 @app.route("/edit", methods=["POST"])
 def edit():
-    if 'username' in session:
-        return render_template('edit.html', user = session["username"])
-    else:
-        return redirect("/")
+    formDict = request.form
+    ID = formDict[ "storyId" ]
+    stats = dbManager.getEditStats( ID )
+    return render_template('edit.html', user = session["username"], info = stats)
+
     
 @app.route("/history")
 def history():
@@ -101,6 +102,16 @@ def recieveCreate():
     storyTitle = formDict["storyTitle"]
     storyContent = formDict["storyContent"]
     dbManager.createStory( storyTitle, storyContent, session["username"] )
+    
+    return redirect("/history")
+
+@app.route("/recieveEdit", methods=['POST'])
+def recieveEdit():
+    formDict = request.form
+    addition = formDict[ "content" ]
+    storyID = int(formDict[ "storyId" ])
+    uID = dbManager.getUserId( session[ "username" ] )
+    dbManager.updateStory( storyID, addition, uID )
     
     return redirect("/history")
 
