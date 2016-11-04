@@ -179,7 +179,14 @@ def updateStory(storyId, newEdit, userId):
 
 #to return a chronological list with most recent first of all the stories that the person has edited already
 
-def doneStories(username):
+def doneStories(username, flag):#if flag 0 - by date, if flag 1 - by title
+    if flag == 0:
+        sortDate(username)
+    else:
+        sortTitle
+        
+#helper for sorting by date        
+def sortDate(username):      
     f = "database.db"
     db = sqlite3.connect(f) #open if f exists, otherwise create
     c = db.cursor()    #facilitate db ops
@@ -188,7 +195,11 @@ def doneStories(username):
     p = """SELECT storyId,time FROM edit_logs WHERE userId == %d"""%(userId)
     c.execute(p)
     totalTuple = c.fetchall()
-    theIds = list(totalTuple)#make tuple a list -- easier to work with
+    theIds = []
+    for i in totalTuple:#make tuple a list -- easier to work with
+        item = list(i)#MOVE DOWN
+        theIds.append(item)
+        print item, theIds
     order = sorted(theIds, key=getKey)
     finalList = []
     for story in order:
@@ -196,9 +207,12 @@ def doneStories(username):
         c.execute(p)
         newThing = list(c.fetchall()) #list of [title,time,content]
         finalList.append(newThing)
+    finalList.reverse()
     db.commit()
     db.close()
     return finalList
+
+#helper for sorting by title
 
 #to return a tuple of the stories that the person has not edited (just the last entry would be displayed)
 

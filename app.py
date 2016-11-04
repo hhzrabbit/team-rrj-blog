@@ -83,7 +83,7 @@ def edit():
 @app.route("/history")
 def history():
     if 'username' in session:
-        storys = dbManager.doneStories( session['username'] )
+        storys = dbManager.doneStories( session['username'],0 )
         print storys
         return render_template('history.html', user = session["username"], stories = storys)
     else:
