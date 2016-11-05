@@ -178,15 +178,16 @@ def updateStory(storyId, newEdit, userId):
     #updateStory(1,"this is a new edit", 0)
 
 #to return a chronological list with most recent first of all the stories that the person has edited already
-
-def doneStories(username, flag):#if flag 0 - by date, if flag 1 - by title
+#if flag 0 - by date, if flag 1 - by title
+def doneStories(username, flag):
     if flag == 0:
-        sortDate(username)
+        retVal = dSortDate(username)
     else:
-        sortTitle
-        
+        retVal = dSortTitle(username)
+    return retVal
+
 #helper for sorting by date        
-def sortDate(username):      
+def dSortDate(username):      
     f = "database.db"
     db = sqlite3.connect(f) #open if f exists, otherwise create
     c = db.cursor()    #facilitate db ops
@@ -195,48 +196,69 @@ def sortDate(username):
     p = """SELECT storyId,time FROM edit_logs WHERE userId == %d"""%(userId)
     c.execute(p)
     totalTuple = c.fetchall()
-    theIds = []
-    for i in totalTuple:#make tuple a list -- easier to work with
-        item = list(i)#MOVE DOWN
-        theIds.append(item)
-        print item, theIds
+    theIds = list(totalTuple)#make tuple a list -- easier to work with
     order = sorted(theIds, key=getKey)
     finalList = []
     for story in order:
         p = """SELECT title,latestTime,fullStory FROM stories WHERE storyId == %d"""%(story[0])
         c.execute(p)
-        newThing = list(c.fetchall()) #list of [title,time,content]
-        finalList.append(newThing)
-    finalList.reverse()
+        totes = c.fetchall()
+        theWhole = []
+        for i in totes:
+            theWhole.append(list(i))
+        finalList.append(theWhole[0])
+    return finalList
     db.commit()
     db.close()
-    return finalList
 
 #helper for sorting by title
+def dStoryTitle(username):
+    return "not there yet"
 
 #to return a tuple of the stories that the person has not edited (just the last entry would be displayed)
 
-def undoneStories(username):
-    
+def undoneStories(username, flag):
+    if flag == 0:
+        retVal = uSortDate(username)
+    else:
+        retVal = uSortTitle(username)
+    return retVal
+
+def uSortDate(username):    
     f = "database.db"
     db = sqlite3.connect(f) #open if f exists, otherwise create
     c = db.cursor()    #facilitate db ops
 
     userId = getUserId(username)
-    p = """SELECT storyId,time FROM edit_logs WHERE userId != %d"""%(userId)
+    p = """SELECT storyId FROM edit_logs WHERE userId == %d"""%(userId)
     c.execute(p)
-    totalTuple = c.fetchall()
-    theIds = list(totalTuple)#make tuple a list -- easier to work with
+    badOne = c.fetchall()
+    p = """SELECT storyId,time FROM edit_logs"""
+    c.execute(p)
+    allOne = c.fetchall()
+    theIds = []
+    for one in allOne:
+        if not(one[0] in badOne):
+            theIds.append(one)    
+    #theIds = list(totalTuple)#make tuple a list -- easier to work with
     order = sorted(theIds, key=getKey)
+    print order
     finalList = []
     for story in order:
-        p = """SELECT title,latestTime,lastEdit, storyId FROM stories WHERE storyId == %d"""%(story[0])
+        p = """SELECT title,latestTime,lastEdit FROM stories WHERE storyId == %d"""%(story[0])
         c.execute(p)
-        newThing = list(c.fetchall())#list of [title,time,content]
-        finalList.append(newThing)
+        totes = c.fetchall()
+        theWhole = []
+        for i in totes:
+            theWhole.append(list(i))
+        finalList.append(theWhole[0])
+    print finalList
+    return finalList
     db.commit()
     db.close()
-    return finalList
+
+def uStoryTitle(username):
+    return "not there yet"
 
 #helper fxn for sorting a 2d list
 def getKey(item):

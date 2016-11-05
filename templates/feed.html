@@ -6,17 +6,17 @@
 
 {% for story in stories %}
 
-<h3> {{ story[0][0] }} </h3>
-<h4> {{ story[0][1] }} </h4>
+<h3> {{ story[0] }} </h3>
+<h4> {{ story[1] }} </h4>
 
 
 <p>
-  {{ story[0][2] }}
+  {{ story[2] }}
 </p>
   
 <form action="/edit" method="POST">
   <input type="submit" name="submit" value="Add to this story">
-  <input type="hidden" name="storyId" value={{ story[0][3] }}>
+  <input type="hidden" name="storyId" value={{ story[3] }}>
   
 </form>
 

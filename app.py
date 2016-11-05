@@ -67,7 +67,7 @@ def logout():
 def storiesFeed():
     if 'username' in session:
         print session
-        storys = dbManager.undoneStories( session['username'] )
+        storys = dbManager.undoneStories( session['username'],0 )
         return render_template('feed.html', user = session["username"], stories = storys)
     else:
         return redirect(url_for('loginOrRegister'))
@@ -85,7 +85,10 @@ def history():
     if 'username' in session:
         storys = dbManager.doneStories( session['username'],0 )
         print storys
-        return render_template('history.html', user = session["username"], stories = storys)
+        if storys != None:
+            return render_template('history.html', user = session["username"], stories = storys)
+        else:
+            return "kaboom!"
     else:
         return redirect("/")
    
