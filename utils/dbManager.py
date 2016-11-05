@@ -101,7 +101,10 @@ def getEditStats(storyId):
     f = "database.db"
     db = sqlite3.connect(f) #open if f exists, otherwise create
     c = db.cursor()    #facilitate db ops
-
+    print "this is the storyId"
+    
+    print storyId, "hi"
+    print "\n\n\n\n\n\n"
     p = """SELECT title, lastEdit FROM stories WHERE storyId == %s""" %(storyId)
     c.execute(p)
 
@@ -233,29 +236,37 @@ def uSortDate(username):
     c = db.cursor()    #facilitate db ops
 
     userId = getUserId(username)
+    print "userId:", userId, "\n\n\n\n\n"
     p = """SELECT storyId FROM edit_logs WHERE userId == %d"""%(userId)
     c.execute(p)
     badOne = c.fetchall()
+    print "badOne:", badOne, "\n\n\n\n\n"
     p = """SELECT storyId,time FROM edit_logs"""
     c.execute(p)
     allOne = c.fetchall()
     theIds = []
+    alreadyCompleted = False
     for one in allOne:
-        if not(one[0] in badOne):
-            theIds.append(one)    
+        for storyId in badOne:
+            if one[0] == storyId[0]:
+                print "found\n\n\n"
+                alreadyCompleted = True
+                break
+        if not alreadyCompleted:
+            theIds.append(one)
     #theIds = list(totalTuple)#make tuple a list -- easier to work with
     order = sorted(theIds, key=getKey)
     print order
     finalList = []
     for story in order:
-        p = """SELECT title,latestTime,lastEdit FROM stories WHERE storyId == %d"""%(story[0])
+        p = """SELECT title,latestTime,lastEdit,storyId FROM stories WHERE storyId == %d"""%(story[0])
         c.execute(p)
         totes = c.fetchall()
         theWhole = []
         for i in totes:
             theWhole.append(list(i))
         finalList.append(theWhole[0])
-    print finalList
+    print "finalList:", finalList, "\n\n\n\n\n"
     return finalList
     db.commit()
     db.close()
