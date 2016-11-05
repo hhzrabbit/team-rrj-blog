@@ -244,16 +244,19 @@ def uSortDate(username):
     p = """SELECT storyId,origTime FROM stories"""
     c.execute(p)
     allOne = c.fetchall()
+    print "allOne:", allOne, "\n\n\n\n\n"
     theIds = []
     alreadyCompleted = False
     for one in allOne:
+        print 6
         for storyId in badOne:
             if one[0] == storyId[0]:
-                print "found\n\n\n"
+                print "found", one[0]
                 alreadyCompleted = True
-                break
+               # break
         if not alreadyCompleted:
             theIds.append(one)
+        alreadyCompleted = False
     #theIds = list(totalTuple)#make tuple a list -- easier to work with
     order = sorted(theIds, key=getKey)
     print order
