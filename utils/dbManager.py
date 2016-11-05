@@ -241,7 +241,7 @@ def uSortDate(username):
     c.execute(p)
     badOne = c.fetchall()
     print "badOne:", badOne, "\n\n\n\n\n"
-    p = """SELECT storyId,time FROM edit_logs"""
+    p = """SELECT storyId,origTime FROM stories"""
     c.execute(p)
     allOne = c.fetchall()
     theIds = []
