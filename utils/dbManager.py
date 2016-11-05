@@ -230,6 +230,15 @@ def undoneStories(username, flag):
         retVal = uSortTitle(username)
     return retVal
 
+#takes a 2D list, where each sublist has an integer at sublist[index]
+#this integer is the timestamp in epoch time
+#converts this int to datetime in YYYY-MM-DD- HH:MM:SS format
+def convertTimeStamps(twoDList, index):
+    for lis in twoDList:
+        lis[index] = time.strftime('%Y-%m-%d %H:%M:%S', time.localtime( int(lis[index])))
+        print index, " -- ",  lis[index]
+    return twoDList
+
 def uSortDate(username):    
     f = "database.db"
     db = sqlite3.connect(f) #open if f exists, otherwise create
@@ -269,6 +278,8 @@ def uSortDate(username):
         for i in totes:
             theWhole.append(list(i))
         finalList.append(theWhole[0])
+    print "finalList:", finalList, "\n\n\n\n\n"
+    finalList = convertTimeStamps(finalList, 1)
     print "finalList:", finalList, "\n\n\n\n\n"
     return finalList
     db.commit()
