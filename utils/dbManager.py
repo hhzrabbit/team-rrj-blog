@@ -22,7 +22,10 @@ def createStory(title, newEntry, username):
     getLatestID = "SELECT storyId FROM stories"
     c.execute(getLatestID)
     l = c.fetchall()
-    storyId = max(l)[0]+1
+    if l: #if list not empty, there are stories already
+        storyId = max(l)[0]+1
+    else:
+        storyId = 0
 
     p = """INSERT INTO stories VALUES ("%s","%s","%s", %d, %d, %d)""" %(title, fullStory, lastEdit, origTime, origTime, storyId)
     c.execute(p)

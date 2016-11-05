@@ -77,10 +77,14 @@ def register(user,password,pwd):    #user-username, password-password, pwd-retyp
         getLatestId = "SELECT userId FROM users"
         c.execute(getLatestId)
         l = c.fetchall()
+        if l: #if list is not empty, there exists ids to take the max of
+            userId = max(l)[0]+1
+        else: #first user to register
+            userId = 0
         #print max(l)[0] + 1 #debugging the tuple insanity
 
         passHash = sha1(password).hexdigest()#hash it
-        insertUser = 'INSERT INTO users VALUES ("%s","%s",%d);' % (user,passHash,max(l)[0]+1) #sqlite code for inserting new user
+        insertUser = 'INSERT INTO users VALUES ("%s","%s",%d);' % (user,passHash,userId) #sqlite code for inserting new user
         c.execute(insertUser)
         
         #debugging: check table
