@@ -120,9 +120,13 @@ def numerize(item):
 def alphabetize(item):
     return item[0].lower()
 
+<<<<<<< HEAD
 #return list of stories the user has edited
 #sorted by time of edit or title as dictated by flag
 #  flag == 0 -> time of last edit; flag == 1 -> title
+=======
+#return list of stories the user has edited, sorted by time of edit
+>>>>>>> 184ed8d13e09c13e7a45c575ddea4a91a0a048a4
 def doneStories(username, flag):      
     f = "database.db"
     db = sqlite3.connect(f) #open if f exists, otherwise create
@@ -155,9 +159,12 @@ def doneStories(username, flag):
   
     return finalList
 
+<<<<<<< HEAD
 #return list of stories the user has not edited
 #sorted by time of edit or title as dictated by flag
 #  flag == 0 -> time of last edit; flag == 1 -> title
+=======
+>>>>>>> 184ed8d13e09c13e7a45c575ddea4a91a0a048a4
 def undoneStories(username, flag):
     f = "database.db"
     db = sqlite3.connect(f) #open if f exists, otherwise create
@@ -167,7 +174,11 @@ def undoneStories(username, flag):
     p = """SELECT storyId FROM edit_logs WHERE userId == %d"""%(userId)
     c.execute(p)
     badOne = c.fetchall()
+<<<<<<< HEAD
     p = """SELECT storyId FROM stories"""
+=======
+    p = """SELECT storyId,origTime FROM stories"""
+>>>>>>> 184ed8d13e09c13e7a45c575ddea4a91a0a048a4
     c.execute(p)
     allOne = c.fetchall()
     theIds = []
