@@ -10,8 +10,8 @@
   {{ info[1] }}
 </p>
   
-<form action="/recieveEdit" method="POST">
-  <input type="text" name="content" value="Add to the story!">
+<form action="/recieveEdit" id="editStory" method="POST">
+  <textarea name="content" form="editStory" placeholder="Add to the story!"></textarea>
   <input type="submit" name="submit" value="Submit">
   <input type="hidden" name="storyId" value={{ info[2] }}>
 

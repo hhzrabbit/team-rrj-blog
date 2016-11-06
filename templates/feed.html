@@ -1,10 +1,15 @@
 {% extends "afterLogInTemplate.html" %}
 
+{% block isFeed %}
+class="active"
+{% endblock %}
+
 {% block title_block %} Feed {% endblock %}
 
 {% block content_block %}
 
 {% for story in stories %}
+
 
 <h3> {{ story[0] }} </h3>
 <h4> {{ story[1] }} </h4>
