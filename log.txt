@@ -30,3 +30,6 @@
 
 11/3 home
 - Anya: Fixed issues with the "threads"
+
+11/5 home
+- Anya: Bootstrapified login/register page and added limits on the input
