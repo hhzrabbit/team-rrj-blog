@@ -199,6 +199,7 @@ def dSortDate(username):
         for i in totes:
             theWhole.append(list(i))
         finalList.append(theWhole[0])
+    finalList = convertTimeStamps(finalList, 1)
     return finalList
     db.commit()
     db.close()
@@ -222,6 +223,7 @@ def dSortTitle(username):
         for i in totes:
             theWhole.append(list(i))
         finalList.append(theWhole[0])
+    finalList = convertTimeStamps(finalList, 1)
     order = sorted(finalList, key=alphabetize)
     return order
     db.commit()
@@ -311,6 +313,7 @@ def uSortTitle(username):
         for i in totes:
             theWhole.append(list(i))
         finalList.append(theWhole[0])
+    finalList = convertTimeStamps(finalList, 1)
     order = sorted(finalList, key=alphabetize)
     return order
     db.commit()
