@@ -32,4 +32,6 @@
 - Anya: Fixed issues with the "threads"
 
 11/5 home
+- Haley: fixed bug where feed would not filter out done stories; updated initializedb.py;edit templates
+- Bayle: added sorting by title functionality
 - Anya: Bootstrapified login/register page and added limits on the input
