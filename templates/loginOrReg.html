@@ -43,7 +43,7 @@
             <form method="POST" action="/authOrCreate">
                 <div class="form-group">
                     <label for="username">Username:</label>
-                    <input type="text" class="form-control" name="username" placeholder="enter username" pattern="[a-zA-Z0-9]{5,63}" title="type five to sixty-three alphanumeric characters" required >
+                    <input type="text" class="form-control" name="username" placeholder="enter username" pattern="[a-zA-Z0-9]{1,63}" title="type up to to sixty-three alphanumeric characters" required >
                 </div>
                     <div class="form-group">
                         <label for="password">Password:</label>
@@ -58,11 +58,12 @@
             <form method="POST" action="/authOrCreate">
                 <div class="form-group">
                     <label for="username">Username:</label>
-                    <input type="text" class="form-control" name="username" placeholder="enter username" pattern="[a-zA-Z0-9]{5,63}" title="type five to sixty-three alphanumeric characters" required >
+                    <input type="text" class="form-control" name="username" placeholder="enter username" pattern="[a-zA-Z0-9]{1,63}" title="type up to sixty-three alphanumeric characters" required >
                 </div>
                     <div class="form-group">
                         <label for="password">Password:</label>
                         <input type="password" class="form-control" name="password" placeholder="enter password" pattern="[a-zA-Z0-9]{5,63}" title="type five to sixty-three alphanumeric characters" required>
+                        <small id="passwordHelp" class="form-text text-muted">five to sixty-three alphanumeric characters</small>
                     </div>
                     <div class="form-group">
                         <label for="confirmpassword">Confirm Password:</label>
