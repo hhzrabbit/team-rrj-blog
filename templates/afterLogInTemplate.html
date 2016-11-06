@@ -1,14 +1,48 @@
 {% extends "masterTemplate.html" %}
 
+{% block css_block %}
+{{ super() }}
+<style>
+  ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #333;
+}
+
+li {
+    float: left;
+}
+
+li a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+
+/* Change the link color to #111 (black) on hover */
+li a:hover {
+  background-color: #111;
+}
+ 
+.active {
+    background-color: #4CAF50;
+}  
+
+</style>
+{% endblock %}
 
 {% block body_block %}
 
 <ul>
-  <li> <a href="/feed">Feed</a> </li>
-  <li> <a href="/history">History</a> </li>
-  <li> <a href="/create">Create</a> </li>
+  <li> <a {% block isFeed %}{% endblock%} href="/feed">Feed</a> </li>
+  <li> <a {% block isHistory %}{% endblock%} href="/history">History</a> </li>
+  <li> <a  {% block isCreate %}{% endblock%} href="/create">Create</a> </li>
   <li> User: {{ user }} </li>
-  <li> <a href="/logout">Logout</a> </li>
+  <li style="float:right"> <a href="/logout">Logout</a> </li>
 </ul>
 
 <h1>

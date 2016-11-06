@@ -2,8 +2,11 @@
 <!-- first line in child of this template should be  extends "masterTemplate.html" in { with % -->
 <html>
 
-    <head>
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">  <!-- thanks Bootstrap! -->
+  <head>
+   
+      {% block css_block %}
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">  <!-- thanks Bootstrap! -->
+      {% endblock %}
         <title> {% block title_block %} masterTemplate {% endblock %} </title> <!--page title-->
     </head>
 

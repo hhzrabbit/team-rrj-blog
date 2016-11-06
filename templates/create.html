@@ -1,17 +1,23 @@
 {% extends "afterLogInTemplate.html" %}
 
+{% block isCreate %}
+class="active"
+{% endblock %}
+
 {% block title_block %} Create a New Story {% endblock %}
 
 {% block content_block %}
 
-<form action="/recieveCreate" method="POST">
+
+
+<form action="/recieveCreate" id="newPost" method="POST">
   <table>
     <tr>
       <td>
 	Title:
       </td>
       <td>
-	<input type="text" name="storyTitle" value="Title">
+	<input type="text" name="storyTitle" placeholder="title">
       </td>
     </tr>
     
@@ -20,7 +26,7 @@
 	Start Your Story:
       </td>
       <td>
-	<input type="text" name="storyContent" value="Story">
+	<textarea name="storyContent" form="newPost" placeholder="enter story here..."></textarea>
       </td>
     </tr>
 
