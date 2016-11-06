@@ -71,6 +71,7 @@ def storiesFeed():
         return render_template('feed.html', user = session["username"], stories = storys)
     else:
         return redirect(url_for('loginOrRegister'))
+
     
 @app.route("/edit", methods=["POST"])
 def edit():
