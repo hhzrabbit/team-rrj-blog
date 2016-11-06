@@ -2,30 +2,84 @@
 {% block title_block %} Login or Register {% endblock %}
 
 {% block body_block  %}
-<h1> Login or Register </h1>
-{{ status }}
+<div class="page-header text-center">
+    <h1> Login or Register </h1>
+    <!--Different allerts for different statuses-->
+    {% if status %}
+    {% if status == "user does not exist" %}
+    <div class="alert alert-danger" role="alert">
+        <strong>User does not exsist :(</strong> Try retyping your username and logging in again.
+    </div>
+    {% elif status == "wrong password"%}
+    <div class="alert alert-danger" role="alert">
+        <strong>Incorrect password :( </strong> Try retyping your password and logging in again.
+    </div>
+    {% elif status == "username taken"%}
+    <div class="alert alert-warning" role="alert">
+        <strong>Username taken :( </strong> Try using a different username and click register.
+    </div>
+    {% elif status == "passwords do not match"%}
+    <div class="alert alert-warning" role="alert">
+        <strong>Passwords do not match :( </strong> Try retyping your password and click register.
+    </div>
+    {% elif "account created" in status %}
+    <div class="alert alert-success" role="alert">
+        <strong>Hooray! </strong> {{status}} Now you can login!
+    </div>
 
-<h3>Login</h3>
-<form method="POST" action="/authOrCreate">
-    <input type="text" name="username" placeholder="username" ><br>
-    <input type="password" name="password" placeholder="password"><br>
-    <input type="submit" name="logOrReg"  value="login">
-</form>
+    {% else %}
+    <div class="alert alert-danger" role="alert">
+        <strong>Oops!</strong> Achievement unlocked: You just discoved a bug!
+    </div>
+    {% endif %}
+    {% endif %}
+</div>
+
+<div class="container">
+    <div class="row">
+
+        <div class="col-xs-6">
+            <h3>Login</h3>
+            <form method="POST" action="/authOrCreate">
+                <div class="form-group">
+                    <label for="username">Username:</label>
+                    <input type="text" class="form-control" name="username" placeholder="enter username" pattern="[a-zA-Z0-9]{5,63}" title="type five to sixty-three alphanumeric characters" required >
+                </div>
+                    <div class="form-group">
+                        <label for="password">Password:</label>
+                        <input type="password" class="form-control" name="password" placeholder="enter password" pattern="[a-zA-Z0-9]{5,63}" title="type five to sixty-three alphanumeric characters" required>
+                    </div>
+                    <input class="btn btn-primary" type="submit" name="logOrReg"  value="login">
+            </form>
+        </div>
+
+        <div class="col-xs-6">
+            <h3>Register</h3>
+            <form method="POST" action="/authOrCreate">
+                <div class="form-group">
+                    <label for="username">Username:</label>
+                    <input type="text" class="form-control" name="username" placeholder="enter username" pattern="[a-zA-Z0-9]{5,63}" title="type five to sixty-three alphanumeric characters" required >
+                </div>
+                    <div class="form-group">
+                        <label for="password">Password:</label>
+                        <input type="password" class="form-control" name="password" placeholder="enter password" pattern="[a-zA-Z0-9]{5,63}" title="type five to sixty-three alphanumeric characters" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="confirmpassword">Confirm Password:</label>
+                        <input type="password" class="form-control" name="pwd" placeholder="retype password" pattern="[a-zA-Z0-9]{5,63}" title="type five to sixty-three alphanumeric characters" required><br> <!--confirm password-->
+                    </div>
+                    <input class="btn btn-primary" type="submit" name="logOrReg"  value="register">
+            </form>
+        </div>
+
+    </div>
+</div>
 
 
-<h3>Register</h3>
-<form method="POST" action="/authOrCreate">
-    <input type="text" name="username" placeholder="username" ><br>
-    <input type="password" name="password" placeholder="password"><br>
-    <input type="password" name="pwd" placeholder="confirm password"><br> <!--confirm password-->
-    <input type="submit" name="logOrReg"  value="register">
-</form>
-
-<br><br>
 <!--
-Hardcodeded logout button for testing
-<form method="POST" action="/logout">
-<input type="submit" name="logout" value="logout">
-</form>
+    Hardcodeded logout button for testing
+    <form method="POST" action="/logout">
+    <input type="submit" name="logout" value="logout">
+    </form>
 -->
-    {% endblock %}
+{% endblock %}

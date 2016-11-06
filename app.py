@@ -29,7 +29,6 @@ def authOrCreate():
             session["username"]=username
             loginStatus = username + " logged in"
             return redirect( "/feed" )
-        
         elif statusNum == 2:
             loginStatus = "wrong password"
 
@@ -46,7 +45,7 @@ def authOrCreate():
         elif statusNum == 1:
             registerStatus = "passwords do not match"
         elif statusNum == 2:
-            registerStatus = username +" account Created"
+            registerStatus = username +" account created"
 
         return render_template("loginOrReg.html",status=registerStatus) #status is the login/creation messate 
     else:
