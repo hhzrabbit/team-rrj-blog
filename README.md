@@ -21,8 +21,9 @@ Welcome to the CollaboRoddative Story Maker! Grab a couple of friends and start 
 
 This brilliant amazing dazzling trailblazing fun-for-the-whole-family game was built by Team Rodda Reimer John, consisting of Anya Keller, Bayle Smith-Salzberg, Jack Schluger, and Haley Zeng.
 
-How To Use
 
+How To Use
+----------
 
 ### Setting Up
 
