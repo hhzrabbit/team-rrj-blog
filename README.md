@@ -1,8 +1,6 @@
 Collaboroddative Story Maker: ~~a collabor...~~ the title is self explanatory 
 ===============================================
 - [About] (#about)
-
-- [How To's] (#how-to-use)
   - [Setting Up] (#setting-up)
   - [Creating an Account] (#creating-an-account)
   - [Logging In/Out] (#logging-inout)
@@ -14,11 +12,7 @@ About
 ----------
 Welcome to the CollaboRoddative Story Maker! Grab a couple of friends and start playing this exciting, team-building game! This game is a mix of mad-libs, telephone, and that one game we all played but has no name where you sit in a circle with your friends and build a story one word at a time and the first person who stutters loses.. yeah, that one -- the CollaboRoddative Story Maker combines the best of three worlds!
 
-This brilliant amazing dazzling trailblazing fun-for-the-whole-family game was built by Team Rodda Reimer John, consisting of Anya Keller, Bayle Smith-Salzberg, Jack Schluger, and Haley Zeng.
-
-
-How To Use
-----------
+This brilliant amazing dazzling trailblazing fun-for-the-whole-family game was built by Team Rodda Reimer John, consisting of Anya Keller, Bayle Smith-Salzberg, Jack Schluger, and Haley Zeng, of Mr. Brown Mykolyk's Pd 8 Softdev class.
 
 ### Setting Up
 
