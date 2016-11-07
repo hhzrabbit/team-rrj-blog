@@ -35,3 +35,9 @@
 - Haley: fixed bug where feed would not filter out done stories; updated initializedb.py;edit templates
 - Bayle: added sorting by title functionality
 - Anya: Bootstrapified login/register page and added limits on the input
+
+11/6
+- Haley: added functionality for choosing sorts w/ dropdown; updated README.md
+- Bayle: cleaning up code
+- Anya: add favicon
+- Jack: bug testing
