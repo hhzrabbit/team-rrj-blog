@@ -123,7 +123,8 @@ def alphabetize(item):
 #return list of stories the user has edited
 #sorted by time of edit or title as dictated by flag
 #  flag == 0 -> time of last edit; flag == 1 -> title
-def doneStories(username, flag):      
+def doneStories(username, flag):
+    print "flag: ", flag
     f = "database.db"
     db = sqlite3.connect(f) #open if f exists, otherwise create
     c = db.cursor()    #facilitate db ops

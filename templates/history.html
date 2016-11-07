@@ -8,6 +8,16 @@ class="active"
 
 {% block content_block %}
 
+<div style="float:right">
+Sort by: <form action="/sorthistory" id="sort" method="POST">
+  <select form="sort" name="sortBy">
+  <option value="0">Time of your edit</option>
+  <option value="1">Title</option>
+  </select>
+  <input type="submit" value="submit">
+</form>
+</div>
+
 {{ message }}
 
 {% for story in stories %}

@@ -9,7 +9,13 @@ f = open( "utils/key", 'r' )
 app.secret_key = f.read();
 f.close
 
-#tells flask what to do when browser requests access from root of flask app
+#how to sort feed and history
+sortFeedBy = 0
+sortHistoryBy = 0
+
+#root, two behaviors:
+#    if logged in: redirects you to your feed
+#    if not logged in: displays log in/register page
 @app.route("/")
 def loginOrRegister():
     if 'username' in session:
@@ -17,6 +23,7 @@ def loginOrRegister():
     else:
         return render_template("loginOrReg.html")
 
+#handles input of the login register page
 @app.route("/authOrCreate", methods=["POST"])
 def authOrCreate():
     formDict = request.form
@@ -54,6 +61,7 @@ def authOrCreate():
     else:
         return redirect(url_for("loginOrReg"))
 
+#logout of user
 @app.route('/logout', methods=["POST", "GET"])
 def logout():
     if "username" in session:
@@ -62,14 +70,26 @@ def logout():
     else:
         return redirect(url_for('loginOrRegister'))
 
-
+#dictates how to sort stories in the feed
+@app.route("/sortfeed", methods=["POST"])
+def sortfeed():
+    formDict = request.form
+    print "f", formDict
+    #for e in formDict:
+     #   print e
+    sortBy = formDict[ "sortBy" ]
+    print sortBy
+    global sortFeedBy
+    sortFeedBy = int(sortBy)
+    return redirect("/feed")
+    
 #every story in the feed will have a form submit button
 #upon form submit it will send post ID to edit()
 @app.route("/feed")
 def storiesFeed():
     if 'username' in session:
         print session
-        storys = dbManager.undoneStories( session['username'], 0)
+        storys = dbManager.undoneStories( session['username'], sortFeedBy)
         if storys: #not empty, meaning there are stories to show
             return render_template('feed.html', user = session["username"], stories = storys)
         else:
@@ -77,7 +97,8 @@ def storiesFeed():
     else:
         return redirect(url_for('loginOrRegister'))
 
-    
+#called when someone clicks the form submit button next to one of the stories in feed
+#edit the story
 @app.route("/edit", methods=["POST"])
 def edit():
     formDict = request.form
@@ -85,36 +106,7 @@ def edit():
     stats = dbManager.getEditStats( ID )
     return render_template('edit.html', user = session["username"], info = stats)
 
-    
-@app.route("/history")
-def history():
-    if 'username' in session:
-        storys = dbManager.doneStories( session['username'], 0 )#testing alphabetize
-        print storys
-        if storys: #not empty, meaning there are stories to show
-            return render_template('history.html', user = session["username"], stories = storys)
-        else:
-            return render_template('history.html', user = session["username"], message = "No stories to show.")
-
-    else:
-        return redirect("/")
-   
-@app.route("/create")
-def newStory():
-    if 'username' in session:
-        return render_template('create.html', user = session["username"])
-    else:
-        return redirect("/")
-        
-@app.route("/recieveCreate", methods=['POST'])
-def recieveCreate():
-    formDict = request.form
-    storyTitle = formDict["storyTitle"]
-    storyContent = formDict["storyContent"]
-    dbManager.createStory( storyTitle, storyContent, session["username"] )
-    
-    return redirect("/history")
-
+#backend of editing story
 @app.route("/recieveEdit", methods=['POST'])
 def recieveEdit():
     formDict = request.form
@@ -124,6 +116,49 @@ def recieveEdit():
     dbManager.updateStory( storyID, addition, uID )
     
     return redirect("/history")
+
+#change criteria of sorting history
+@app.route("/sorthistory", methods=["POST"])
+def sorthistory():
+    formDict = request.form
+    print "f", formDict
+    sortBy = formDict[ "sortBy" ]
+    print sortBy
+    global sortHistoryBy
+    sortHistoryBy = int(sortBy)
+    return redirect("/history")
+
+#display history -- feed of the stories you have contributed to
+@app.route("/history")
+def history():
+    if 'username' in session:
+        storys = dbManager.doneStories( session['username'], sortHistoryBy)#testing alphabetize
+        print storys
+        if storys: #not empty, meaning there are stories to show
+            return render_template('history.html', user = session["username"], stories = storys)
+        else:
+            return render_template('history.html', user = session["username"], message = "No stories to show.")
+
+    else:
+        return redirect("/")
+
+#create a new story
+@app.route("/create")
+def newStory():
+    if 'username' in session:
+        return render_template('create.html', user = session["username"])
+    else:
+        return redirect("/")
+    
+#backend of creating new story
+@app.route("/recieveCreate", methods=['POST'])
+def recieveCreate():
+    formDict = request.form
+    storyTitle = formDict["storyTitle"]
+    storyContent = formDict["storyContent"]
+    dbManager.createStory( storyTitle, storyContent, session["username"] )
+    return redirect("/history")
+
 
 
 if __name__ == "__main__":
