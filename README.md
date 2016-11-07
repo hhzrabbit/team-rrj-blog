@@ -39,7 +39,7 @@ $ python app.py
 
 ### Creating an Account
 
-You must come up with a username, and a distinct 8 character password containing at least one number, one special charater, and both capital and lowrcase letters.  Fill in desired username in the username field under register.  Fill in desired password in both password fields under register.  Click the register button.  
+You must come up with a username, and a distinct 5-63 character password cconsisting of only alphanumeric characters.  Fill in desired username in the username field under register.  Fill in desired password in both password fields under register.  Click the register button.  
 
 If the message says account created, you're registerd!
 If it says username taken, you have to choose a new username and try again.  
