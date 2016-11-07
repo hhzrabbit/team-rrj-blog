@@ -1,7 +1,9 @@
-Collaborative Story Maker: ~~a collabor...~~ the title is self explanatory 
+Collaboroddative Story Maker: ~~a collabor...~~ the title is self explanatory 
 ===============================================
-- [How To Use] (#how-to-use)
-  - [Setting U] (#setting-up)
+- [About] (#about)
+
+- [How To's] (#how-to-use)
+  - [Setting Up] (#setting-up)
   - [Creating an Account] (#creating-an-account)
   - [Logging In/Out] (#logging-inout)
   - [Start New Story] (#start-new-story)
@@ -13,8 +15,14 @@ Collaborative Story Maker: ~~a collabor...~~ the title is self explanatory
   - [Search Stories] (#search-stories)
 
 
-How To Use
+About
 ----------
+Welcome to the CollaboRoddative Story Maker! Grab a couple of friends and start playing this exciting, team-building game! This game is a mix of mad-libs, telephone, and that one game we all played but has no name where you sit in a circle with your friends and build a story one word at a time and the first person who stutters loses.. yeah, that one -- the CollaboRoddative Story Maker combines the best of three worlds!
+
+This brilliant amazing dazzling trailblazing fun-for-the-whole-family game was built by Team Rodda Reimer John, consisting of Anya Keller, Bayle Smith-Salzberg, Jack Schluger, and Haley Zeng.
+
+How To Use
+
 
 ### Setting Up
 
@@ -46,11 +54,11 @@ If the message says password inccorect, make sure you typed the password correct
 
 ### Start New Story
 
-iDK
+Click on the "Create" button on the navbar to start a new story. You will be prompted to enter a title and the contents of your story. Once you submit your story, it will be stored in the database and other users will be able to contribute to it!
 
 ### Contribute to Existing Story
 
-IDKKKK
+Click on the "Feed" button to see a feed of stories other users have submitted. If you see one that interests you, click the Edit button and contribute to the story! Once you contribute to a story, the story will be moved to your history 
 
 Features
 --------
