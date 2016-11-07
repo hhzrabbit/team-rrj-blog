@@ -7,13 +7,8 @@ Collaboroddative Story Maker: ~~a collabor...~~ the title is self explanatory
   - [Creating an Account] (#creating-an-account)
   - [Logging In/Out] (#logging-inout)
   - [Start New Story] (#start-new-story)
-  - [Contribute to Existing Story] (#contribute-to-existing-story)
-
-- [Features] (#features)
-  - [Stories] (#stories)
-  - [User Accounts] (#user-accounts)
-  - [Search Stories] (#search-stories)
-
+  - [The Feed] (#the-feed)
+  - [History] (#history)
 
 About
 ----------
@@ -57,21 +52,11 @@ If the message says password inccorect, make sure you typed the password correct
 
 Click on the "Create" button on the navbar to start a new story. You will be prompted to enter a title and the contents of your story. Once you submit your story, it will be stored in the database and other users will be able to contribute to it!
 
-### Contribute to Existing Story
+### The Feed
 
-Click on the "Feed" button to see a feed of stories other users have submitted. If you see one that interests you, click the Edit button and contribute to the story! Once you contribute to a story, the story will be moved to your history 
+Click on the "Feed" button on the navbar to see a feed of stories other users have submitted. If you see one that interests you, click the Edit button and contribute to the story! Once you contribute to a story, the story will be moved to your history.
 
-Features
---------
+### History
 
-### Stories
+Click on the "History" button on the navbar to see a feed of stories you have contributed to. The full stories will be shown. You may not contribute to these stories again.
 
-Stories are collections of sentences contributed by multiple users.  The user can only use the most recent sentence for guidance on how to continue the story.
-
-### User Accounts
-
-Users must create their own account to use the website.  Accounts save the stories you've alredy contributed to, and allow you to start new ones, contribute to stories, and read stories once you've contributed.
-
-### Search Stories
-
-Users can do searchey stuff ya?
