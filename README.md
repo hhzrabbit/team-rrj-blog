@@ -1,33 +1,32 @@
 Collaborative Story Maker: ~~a collabor...~~ the title is self explanatory 
 ===============================================
-
-- [Features] (#features)
-  - [Stories] (#stories)
-  - [User Accounts] (#user-accounts)
-  - [Search Stories] (#search-stories)
 - [How To Use] (#how-to-use)
+  - [Setting U] (#setting-up)
   - [Creating an Account] (#creating-an-account)
   - [Logging In/Out] (#logging-inout)
   - [Start New Story] (#start-new-story)
   - [Contribute to Existing Story] (#contribute-to-existing-story)
 
-Features
---------
+- [Features] (#features)
+  - [Stories] (#stories)
+  - [User Accounts] (#user-accounts)
+  - [Search Stories] (#search-stories)
 
-### Stories
-
-Stories are collections of sentences contributed by multiple users.  The user can only use the most recent sentence for guidance on how to continue the story.
-
-### User Accounts
-
-Users must create their own account to use the website.  Accounts save the stories you've alredy contributed to, and allow you to start new ones, contribute to stories, and read stories once you've contributed.
-
-### Search Stories
-
-Users can do searchey stuff ya?
 
 How To Use
 ----------
+
+### Setting Up
+
+To set up the game for the first time:
+```
+$ python utils/initialize.py
+```
+
+To run the server:
+```
+$ python app.py
+```
 
 ### Creating an Account
 
@@ -52,3 +51,18 @@ iDK
 ### Contribute to Existing Story
 
 IDKKKK
+
+Features
+--------
+
+### Stories
+
+Stories are collections of sentences contributed by multiple users.  The user can only use the most recent sentence for guidance on how to continue the story.
+
+### User Accounts
+
+Users must create their own account to use the website.  Accounts save the stories you've alredy contributed to, and allow you to start new ones, contribute to stories, and read stories once you've contributed.
+
+### Search Stories
+
+Users can do searchey stuff ya?
