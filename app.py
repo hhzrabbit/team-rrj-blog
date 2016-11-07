@@ -12,7 +12,10 @@ f.close
 #tells flask what to do when browser requests access from root of flask app
 @app.route("/")
 def loginOrRegister():
-    return render_template("loginOrReg.html")
+    if 'username' in session:
+        return redirect("/feed")
+    else:
+        return render_template("loginOrReg.html")
 
 @app.route("/authOrCreate", methods=["POST"])
 def authOrCreate():
@@ -55,7 +58,7 @@ def authOrCreate():
 def logout():
     if "username" in session:
         session.pop('username')
-        return render_template("loginOrReg.html",status=" logged out") 
+        return render_template("loginOrReg.html",status="logged out") 
     else:
         return redirect(url_for('loginOrRegister'))
 
@@ -67,7 +70,10 @@ def storiesFeed():
     if 'username' in session:
         print session
         storys = dbManager.undoneStories( session['username'], 0)
-        return render_template('feed.html', user = session["username"], stories = storys)
+        if storys: #not empty, meaning there are stories to show
+            return render_template('feed.html', user = session["username"], stories = storys)
+        else:
+            return render_template('feed.html', user = session["username"], message = "No stories to show.")
     else:
         return redirect(url_for('loginOrRegister'))
 
@@ -85,10 +91,11 @@ def history():
     if 'username' in session:
         storys = dbManager.doneStories( session['username'], 0 )#testing alphabetize
         print storys
-        if storys != None:
+        if storys: #not empty, meaning there are stories to show
             return render_template('history.html', user = session["username"], stories = storys)
         else:
-            return "kaboom!"
+            return render_template('history.html', user = session["username"], message = "No stories to show.")
+
     else:
         return redirect("/")
    

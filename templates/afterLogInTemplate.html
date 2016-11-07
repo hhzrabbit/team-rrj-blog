@@ -4,33 +4,44 @@
 {{ super() }}
 <style>
   ul {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-    overflow: hidden;
-    background-color: #333;
-}
+  list-style-type: none;
+  margin-top: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: #333;
+  }
 
-li {
-    float: left;
-}
+  li {
+  float: left;
+  }
 
-li a {
-    display: block;
-    color: white;
-    text-align: center;
-    padding: 14px 16px;
-    text-decoration: none;
-}
+  li a {
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 12px 16px;
+  text-decoration: none;
+  }
 
-/* Change the link color to #111 (black) on hover */
-li a:hover {
-  background-color: #111;
-}
- 
-.active {
-    background-color: #4CAF50;
-}  
+  /* Change the link color to #111 (black) on hover */
+  li a:hover {
+  color: white;
+  font-weight: bold;
+  background-color: #000;
+  text-decoration: none;
+  }
+
+  li div {
+  display: block;
+  color: grey;
+  text-align: center;
+  padding: 12px 16px;
+  text-decoration: none;
+  }
+  
+  .active {
+  background-color: #4CAF50;
+  }  
 
 </style>
 {% endblock %}
@@ -40,9 +51,9 @@ li a:hover {
 <ul>
   <li> <a {% block isFeed %}{% endblock%} href="/feed">Feed</a> </li>
   <li> <a {% block isHistory %}{% endblock%} href="/history">History</a> </li>
-  <li> <a  {% block isCreate %}{% endblock%} href="/create">Create</a> </li>
-  <li> User: {{ user }} </li>
+  <li> <a {% block isCreate %}{% endblock%} href="/create">Create</a> </li>
   <li style="float:right"> <a href="/logout">Logout</a> </li>
+  <li style="float:right"> <div>Logged in as: {{ user }}</div></li>
 </ul>
 
 <h1>
