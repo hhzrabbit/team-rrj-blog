@@ -27,7 +27,6 @@ def loginOrRegister():
 @app.route("/authOrCreate", methods=["POST"])
 def authOrCreate():
     formDict = request.form
-    print formDict #for debugging
     if formDict["logOrReg"] == "login":
         username = formDict["username"]
         password = formDict["password"]
@@ -74,11 +73,7 @@ def logout():
 @app.route("/sortfeed", methods=["POST"])
 def sortfeed():
     formDict = request.form
-    print "f", formDict
-    #for e in formDict:
-     #   print e
     sortBy = formDict[ "sortBy" ]
-    print sortBy
     global sortFeedBy
     sortFeedBy = int(sortBy)
     return redirect("/feed")
@@ -88,7 +83,6 @@ def sortfeed():
 @app.route("/feed")
 def storiesFeed():
     if 'username' in session:
-        print session
         storys = dbManager.undoneStories( session['username'], sortFeedBy)
         if storys: #not empty, meaning there are stories to show
             return render_template('feed.html', user = session["username"], stories = storys)
@@ -121,9 +115,7 @@ def recieveEdit():
 @app.route("/sorthistory", methods=["POST"])
 def sorthistory():
     formDict = request.form
-    print "f", formDict
     sortBy = formDict[ "sortBy" ]
-    print sortBy
     global sortHistoryBy
     sortHistoryBy = int(sortBy)
     return redirect("/history")
@@ -133,7 +125,6 @@ def sorthistory():
 def history():
     if 'username' in session:
         storys = dbManager.doneStories( session['username'], sortHistoryBy)#testing alphabetize
-        print storys
         if storys: #not empty, meaning there are stories to show
             return render_template('history.html', user = session["username"], stories = storys)
         else:

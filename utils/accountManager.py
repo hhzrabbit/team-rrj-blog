@@ -29,7 +29,6 @@ def authenticate(user,password):
 
     checkUser = 'SELECT * FROM users WHERE username=="%s";' % (user)  #checks if the user is in the database
     c.execute(checkUser)
-    print 'status of stuff'  #debugging stuff
     l = c.fetchone() #listifies the results
     if l == None:
         isLogin = False
@@ -43,7 +42,6 @@ def authenticate(user,password):
         isLogin = False
         messageNumber = 2
         loginStatusMessage = "wrong password"
-    print loginStatusMessage
 
     db.commit() #save changes
     db.close()  #close database
@@ -61,7 +59,6 @@ def register(user,password,pwd):    #user-username, password-password, pwd-retyp
 
     checkUser = 'SELECT * FROM users WHERE username=="%s";' % (user)  #checks if the user is in the database
     c.execute(checkUser)
-    print 'status of stuff'  #debugging stuff
     l = c.fetchone() #listifies the results
 
     if l != None:
@@ -81,21 +78,14 @@ def register(user,password,pwd):    #user-username, password-password, pwd-retyp
             userId = max(l)[0]+1
         else: #first user to register
             userId = 0
-        #print max(l)[0] + 1 #debugging the tuple insanity
 
         passHash = sha1(password).hexdigest()#hash it
         insertUser = 'INSERT INTO users VALUES ("%s","%s",%d);' % (user,passHash,userId) #sqlite code for inserting new user
         c.execute(insertUser)
-        
-        #debugging: check table
-        print "Table"
-        c.execute('SELECT * FROM users;')
-        print c.fetchall()
 
         isRegister = True
         messageNumber = 2
         registerStatus = "user %s registered!" % (user)
-    print registerStatus
 
     db.commit() #save changes
     db.close()  #close database
