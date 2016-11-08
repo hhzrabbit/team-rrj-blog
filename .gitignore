@@ -1,8 +1,0 @@
-# private key
-key
-
-#the database
-database.db
-
-*.pyc
-*#

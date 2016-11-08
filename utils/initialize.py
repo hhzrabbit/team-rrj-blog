@@ -5,7 +5,7 @@ block comment describing the contents of this file
 import sqlite3   #enable control of an sqlite database
 import os
 
-keyFile = open("key", "w")
+keyFile = open("utils/key", "w")
 keyFile.write(os.urandom(32))
 keyFile.close()
 
